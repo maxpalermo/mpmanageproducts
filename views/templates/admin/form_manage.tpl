@@ -140,57 +140,27 @@
                     </div>
                 </div>
                 <div id="tabs-3">
-                    <!-- *********************
-                         ** ATTRIBUTE ITEMS **
-                         ********************* -->
+                    <!-- *********************************
+                         ** ATTRIBUTE COMBINATION ITEMS **
+                         ********************************* -->
                     <div class="form-wrapper">
                         <div class="form-group">
-                            <label class="control-label label-br required">{l s='Product attributes' mod='mpmanageproducts'}</label>
-                            <i class='icon-arrow-right'></i>
-                            <input type='checkbox' name='input_chk_attribute_description'>
-                                <label class="control-label label-br" for='input_chk_attribute_description'>
-                                    {l s='Search by description' mod='mpmanageproducts'}
-                                </label>
-                            <br>
-                            <br>
                             <div>
-                                <select style='width: 300px;' name='input_list_attribute_groups' id='input_list_attribute_groups'>
-                                    {foreach $input_list_attribute_groups as $option}
-                                        <option value='{$option['id']}'>{$option['value']}</option>
-                                    {/foreach}
-                                </select>
-                            </div>
-                            <br>
-                            <div>
-                                <div style="float: left; margin-right: 10px;">
-                                    <select style='width: 300px;' name='input_list_attributes' id='input_list_attributes'>
-
-                                    </select>
-                                </div>
-                                <div style="float: left; margin-right: 10px;">
-                                    <select style='width: 300px;' name='input_list_attribute_header' id='input_list_attribute_header'>
-                                        <option value="0">{l s='Please select' mod='mpmanageproducts'}</option>
-                                        {foreach $input_excel_header as $option}
-                                            <option value='{$option['id']}'>{$option['value']}</option>
-                                        {/foreach}
-                                    </select>
-                                </div>
-                                <div style="float: left; width: 64px;">
-                                    <i class="process-icon-plus config-buttons" style="display: inline-block;" onclick="addAttribute();"></i>
-                                    <i class="process-icon-cancel config-buttons" style="display: inline-block;" onclick="delAttribute();"></i>
-                                </div>
-                            </div>
-                            <br style='clear: both;'>
-                            <br>
-                            <div>
-                                <table class='table' id='table_attributes'>
+                                <p class='panel-heading' style="margin-top: 20px; margin-left: 10px;">
+                                    <img src='../modules/mpmanageproducts/views/img/attribute.png' alt='Config'>
+                                    {l s='Product combinations' mod='mpmanageproducts'}
+                                </p>  
+                                <table class='table' id='table_combinations'>
                                     <thead>
                                         <tr>
-                                            <th style='display: none;'></th>
+                                            <th>id</th>
                                             <th>{l s='Attribute' mod='mpmanageproducts'}</th>
-                                            <th style='display: none;'></th>
-                                            <th>{l s='Column' mod='mpmanageproducts'}</th>
-                                            <th>{l s='Actions' mod='mpmanageproducts'}</th>
+                                            <th>{l s='id Product' mod='mpmanageproducts'}</th>
+                                            <th>{l s='Product' mod='mpmanageproducts'}</th>
+                                            <th>{l s='Reference' mod='mpmanageproducts'}</th>
+                                            <th>{l s='EAN13' mod='mpmanageproducts'}</th>
+                                            <th>{l s='Price' mod='mpmanageproducts'}</th>
+                                            <th>{l s='Quantity' mod='mpmanageproducts'}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -198,6 +168,21 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                        <br style='clear: both;'>
+                        <div class="panel">
+                            <button type="button" value="1" id="submit_check_all_combination" name="submit_check_all_discount" class="btn btn-default">
+                                <i class="icon-check"></i> 
+                                {l s='Check all' mod='mpmanageproducts'}
+                            </button> 
+                            <button type="button" value="1" id="submit_uncheck_all_combination" name="submit_uncheck_all_discount" class="btn btn-default">
+                                <i class="icon-check-empty"></i> 
+                                {l s='Uncheck all' mod='mpmanageproducts'}
+                            </button> 
+                            <button type="button" value="1" id="submit_delete_combination" name="submit_delete_discounts" class="btn btn-default">
+                                <i class="icon-trash"></i> 
+                                {l s='Delete selected' mod='mpmanageproducts'}
+                            </button> 
                         </div>
                     </div>
                 </div>
@@ -372,6 +357,7 @@
                             id_products.push(this.value);
                         });
                         listDiscounts(id_products);
+                        listCombinations(id_products);
                     }
         });
     }
@@ -388,6 +374,23 @@
             success: function(response)
                     {
                         $('#table_discounts tbody').html(response);
+                        
+                    }
+        });
+    }
+    
+    function listCombinations(id_products)
+    {
+        $.ajax({
+            method: 'POST',
+            url   : '../modules/mpmanageproducts/ajax/getCombinations.php',
+            data  :
+                    {
+                        'products': id_products
+                    },
+            success: function(response)
+                    {
+                        $('#table_combinations tbody').html(response);
                         
                     }
         });
