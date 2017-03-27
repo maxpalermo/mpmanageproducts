@@ -18,11 +18,26 @@ $from = Tools::getValue("from");
 $to = Tools::getValue("to");
 $products = Tools::getValue("products");
 if(empty($products)) {
-    print "";
+    print "No products";
     exit();
 }
 
-$id_product_list = implode(",",$products);
+if ($price==0) {
+    $price = -1;
+}
+
+if ($quantity<0) {
+    $quantity = 0;
+}
+
+if ($from=="") {
+    $from = '0';
+}
+
+if ($to=="") {
+    $to = '0';
+}
+
 $id_lang = Context::getContext()->language->id;
 
 foreach($products as $product) 
@@ -33,7 +48,7 @@ foreach($products as $product)
     $discount->id_product_attribute = 0;
     $discount->id_shop = 0;
     $discount->id_shop_group = 0;
-    $discount->id_country = 0;
+    $discount->id_currency = 0;
     $discount->id_country = 0;
     $discount->id_group = 0;
     $discount->id_customer = 0;
@@ -45,9 +60,20 @@ foreach($products as $product)
     $discount->from = $from;
     $discount->to = $to;
     
-    $add[] = $discount->add();
+    try {
+        $add[] = $discount->add();
+    } catch (Exception $exc) {
+        $add[] = $product . ": (" . $exc->getCode()  . ") " . $exc->getMessage();
+    }
 }
 
 print "Added " + count($add) + " discounts\n";
 print_r($add);
 exit();
+
+
+function validateDate($date, $format = 'Y-m-d H:i:s')
+{
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
+}

@@ -185,7 +185,74 @@
                                     </div>
                                 </div>
                                 <div id="tabs-discounts-2">
-                                  
+                                    <!-- ************************
+                                         *** ADD DISCOUNT TAB ***
+                                         ************************
+                                    -->
+                                    <div>
+                                        <label class="control-label label-br">{l s='Price' mod='mpmanageproducts'}</label>
+                                        <input type="text" id="input_discount_price" value="" style='width: 200px; text-align: right;'>
+                                        <br>
+                                        <label class="control-label label-br">{l s='Minimum quantity' mod='mpmanageproducts'}</label>
+                                        <input type="text" id="input_discount_quantity" value="" style='width: 200px; text-align: right;'>
+                                        <br>
+                                        <label class="control-label label-br">{l s='Reduction' mod='mpmanageproducts'}</label>
+                                        <input type="text" id="input_discount_reduction" value="" style='width: 200px; text-align: right;'>
+                                        <br>
+                                        <label class="control-label label-br">{l s='Tax' mod='mpmanageproducts'}</label>
+                                        <select id="input_discount_tax" style='width: auto;'>
+                                            <option value='1'>{l s='Included' mod='mpmanageproducts'}</option>
+                                            <option value='0'>{l s='Excluded' mod='mpmanageproducts'}</option>
+                                        </select>
+                                        <br>
+                                        <label class="control-label label-br">{l s='Reduction type' mod='mpmanageproducts'}</label>
+                                        <select id="input_discount_reduction_type" style='width: auto;'>
+                                            <option value='percentage'>{l s='Percentage' mod='mpmanageproducts'}</option>
+                                            <option value='amount'>{l s='Amount' mod='mpmanageproducts'}</option>
+                                        </select>
+                                        <br>
+                                        <label class="control-label label-br">{l s='From date' mod='mpmanageproducts'}</label>
+                                        <input type="text" readonly='readonly' id="input_discount_from" value="" style='width: 200px; text-align: center;'>
+                                        <br>
+                                        <label class="control-label label-br">{l s='To date' mod='mpmanageproducts'}</label>
+                                        <input type="text" readonly='readonly' id="input_discount_to" value="" style='width: 200px; text-align: center;'>
+                                        <br>
+                                    </div>
+                                    <!-- **************************
+                                         *** TABLE LIST PRODUCT ***
+                                        ***************************
+                                    -->
+                                    <p class='panel-heading' style="margin-top: 20px;">
+                                        <img src='../modules/mpmanageproducts/views/img/table.png' alt='table'>
+                                        {l s='Discount options' mod='mpmanageproducts'}
+                                    </p>            
+                                                
+                                    <div style="float: left; margin-right: 20px;">
+                                        <table class="table" id="table_discounts_products" style='display: block; overflow-y: auto; height: 10em;'>
+                                            <thead>
+                                                <tr>
+                                                    <th style='text-align: right;'><input type='checkbox' id='input_checkbox_discount_products'></th>
+                                                    <th>{l s='Types' mod='mpmanageproducts'}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div> 
+                                    <br style='clear: both;'>
+                                                
+                                    <p class='panel-heading' style="margin-top: 20px;">
+                                        <img src='../modules/mpmanageproducts/views/img/tools.png' alt='table'>
+                                        {l s='Discount options' mod='mpmanageproducts'}
+                                    </p>  
+                                    
+                                    <div>
+                                        <button type="button" value="1" id="submit_add_discount" name="submit_addl_discount" class="btn btn-default">
+                                            <i class="icon-plus-sign"></i> 
+                                            {l s='Add discount' mod='mpmanageproducts'}
+                                        </button> 
+                                    </div>    
                                 </div>
                             </div>        
                         </div>
@@ -250,28 +317,28 @@
                                         </div>
                                     </div>
                                     <br style='clear: both;'>
-                                </div>
-                                <br style='clear: both;'>
 
-                                <p class='panel-heading' style="margin-top: 20px;">
-                                    <img src='../modules/mpmanageproducts/views/img/tools.png' alt='table'>
-                                    {l s='Manage options' mod='mpmanageproducts'}
-                                </p>  
+                                    <p class='panel-heading' style="margin-top: 20px;">
+                                        <img src='../modules/mpmanageproducts/views/img/tools.png' alt='table'>
+                                        {l s='Manage options' mod='mpmanageproducts'}
+                                    </p>  
 
-                                <div>
-                                    <button type="button" value="1" id="submit_check_all_combination" name="submit_check_all_combinations" class="btn btn-default">
-                                        <i class="icon-check"></i> 
-                                        {l s='Check all' mod='mpmanageproducts'}
-                                    </button> 
-                                    <button type="button" value="1" id="submit_uncheck_all_combination" name="submit_uncheck_all_combinations" class="btn btn-default">
-                                        <i class="icon-check-empty"></i> 
-                                        {l s='Uncheck all' mod='mpmanageproducts'}
-                                    </button> 
-                                    <button type="button" value="1" id="submit_delete_combination" name="submit_delete_combinations" class="btn btn-default">
-                                        <i class="icon-trash"></i> 
-                                        {l s='Delete selected' mod='mpmanageproducts'}
-                                    </button> 
+                                    <div>
+                                        <button type="button" value="1" id="submit_check_all_combination" name="submit_check_all_combinations" class="btn btn-default">
+                                            <i class="icon-check"></i> 
+                                            {l s='Check all' mod='mpmanageproducts'}
+                                        </button> 
+                                        <button type="button" value="1" id="submit_uncheck_all_combination" name="submit_uncheck_all_combinations" class="btn btn-default">
+                                            <i class="icon-check-empty"></i> 
+                                            {l s='Uncheck all' mod='mpmanageproducts'}
+                                        </button> 
+                                        <button type="button" value="1" id="submit_delete_combination" name="submit_delete_combinations" class="btn btn-default">
+                                            <i class="icon-trash"></i> 
+                                            {l s='Delete selected' mod='mpmanageproducts'}
+                                        </button> 
+                                    </div>
                                 </div>
+                                <br style='clear: both;'>    
                             </div>
                         </div>
                     </div>
@@ -280,9 +347,7 @@
         </div>
                     
         <div class='panel-footer'>
-            <button type="submit" value="1" id="submit_config" name="submit_config" class="btn btn-default pull-right">
-                <i class="process-icon-configure"></i> Import
-            </button>
+            
         </div>
                                 
     </div>
@@ -290,8 +355,13 @@
                             
 <script type="text/javascript">
     $(document).ready(function(){
+        $("#input_discount_from").datepicker();
+        $("#input_discount_from").datepicker("option","dateFormat","yy-mm-dd");
+        $("#input_discount_to").datepicker();
+        $("#input_discount_to").datepicker("option","dateFormat","yy-mm-dd");
         $("#tabs").tabs();
         $("#tabs-discounts").tabs();
+        $("#tabs-combinations").tabs();
         $('#associated-categories-tree').tree('expandAll').tree('collapseAll');
         $('#input_list_attribute_groups').on('change',function(){
             var id_attribute_group = $(this).val();
@@ -371,6 +441,19 @@
             var checkboxes = getCheckBoxesFromTable('table_combinations');
             deleteFromTable('product_attribute','id_product_attribute',checkboxes);
         });
+        
+        $("#submit_add_discount").on("click",function(){
+            if(confirm("{l s='This operation will add discounts for all product selected. Are you sure?' mod='mpmanageproducts'}")) {
+                addDiscount();
+            }
+        });
+        $("#input_checkbox_discount_products").on("click",function(){
+            if($(this).is(":checked")) {
+                checkSelectAll($("#table_discounts_products tbody tr input[type='checkbox']"));
+            } else {
+                uncheckSelectAll($("#table_discounts_products tbody tr input[type='checkbox']"));
+            }
+        });
     });
     
     function deleteRow(elem)
@@ -442,6 +525,9 @@
                 "</a>";
     }
     
+    /*
+     * MAIN PROCEDURE
+     */
     function listProducts(checked)
     {
         $.ajax({
@@ -460,6 +546,7 @@
                         });
                         listDiscounts(id_products);
                         listCombinations(id_products);
+                        listProductsForDiscount('table_discounts_products');
                     }
         });
     }
@@ -523,6 +610,12 @@
                         $("#total_combinations_rows").html("{l s='Total rows: ' mod='mpmanageproducts'}" + $("#table_combinations tbody tr:last").index() +1);
                     }
         });
+    }
+    
+    function listProductsForDiscount(tablename)
+    {
+        var products = getListFromSelect('input_list_products');
+        $("#" + tablename + " tbody").html(products);
     }
     
     function checkSelectAll(check)
@@ -598,5 +691,51 @@
     function isObject(obj) 
     {
         return obj === Object(obj);
+    }
+    
+    function addDiscount()
+    {
+        var price          = $("#input_discount_price").val();
+        var qty            = $("#input_discount_quantity").val();
+        var reduction      = $("#input_discount_reduction").val()/100;
+        var tax            = $("#input_discount_tax").val();
+        var reduction_type = $("#input_discount_reduction_type").val();
+        var from           = $("#input_discount_from").val();
+        var to             = $("#input_discount_to").val();
+        var products       = getCheckBoxesFromTable('table_discounts_products');
+        
+        $.ajax({
+            method: 'POST',
+            url   : '../modules/mpmanageproducts/ajax/addDiscount.php',
+            data  :
+                    {
+                        'price'          : price,
+                        'quantity'       : qty,
+                        'reduction'      : reduction,
+                        'tax'            : tax,
+                        'reduction_type' : reduction_type,
+                        'from'           : from,
+                        'to'             : to,
+                        'products'       : products
+                    },
+            success: function(response)
+                    {
+                        console.log(response);
+                        refreshTables();
+                    }
+        });
+    }
+    
+    function getListFromSelect(id_select)
+    {
+        var rows = new Array();
+        $("#" + id_select + " option").each(function(){
+            var row = "<tr>"
+                + "<td style='text-align: right;'>" + $(this).val() + " <input type='checkbox' name='checkDiscount[]' value='" +  $(this).val() + "'></td>"
+                + "<td style='min-width: 200px;'>" + $(this).text() + "</td>";
+            rows.push(row);
+        });
+        
+        return rows.join("\n");
     }
 </script>
