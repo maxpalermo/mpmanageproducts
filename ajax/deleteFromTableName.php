@@ -14,6 +14,7 @@ $fieldname  = Tools::getValue("fieldname");
 $values     = Tools::getValue("values");
 
 if(empty($values)) {
+    print "no values";
     exit();
 }
 
@@ -21,9 +22,10 @@ $value_list = implode(",", $values);
 $id_lang    = Context::getContext()->language->id;
 
 $db = Db::getInstance();
-$query = new DbQueryCore();
+$query = $fieldname . ' in (' . $value_list . ')';
 
-$result = $db->delete($tablename, $fieldname . ' in (' . $value_list . ')');
+$result = $db->delete($tablename, $query);
 
-print "deleted: " . $result;
+print "query:" . $query;
+print "\ndeleted: " . $result;
 exit();

@@ -10,13 +10,62 @@ require_once(dirname(__FILE__).'/../../../config/config.inc.php');
 require_once(dirname(__FILE__).'/../../../init.php');
 
 $products = Tools::getValue("products");
+if(empty($products)) {
+    print "";
+    exit();
+}
+
 $id_product_list = implode(",",$products);
 $id_lang = Context::getContext()->language->id;
 
 $db = Db::getInstance();
-$query = new DbQueryCore();
+$query_discounts = new DbQueryCore();
+$query_discount_values = new DbQueryCore();
+$query_discount_types = new DbQueryCore();
 
-$query
+//Get discounts value
+$query_discount_values
+        ->select("distinct reduction")
+        ->from("specific_price")
+        ->where("id_product in ($id_product_list)")
+        ->orderBy("reduction");
+$res_discount = $db->executeS($query_discount_values);
+$rowsValue = "";
+foreach($res_discount as $record)
+{
+    $rowsValue .= "<tr>"
+                ."<td style='text-align: right;'>"
+                    . "<input type='checkbox' "
+                            . "name='checkDiscountValue[]' "
+                            . "value='" . $record['reduction'] . "' "
+                            . "onclick='checkColumn(4,this,\"table_discounts\");'>"
+                . "</td>"
+                ."<td style='text-align: right;'>" . $record['reduction'] . "</td>"
+                ."</tr>";
+}
+
+//Get discounts type
+$query_discount_types
+        ->select("distinct reduction_type")
+        ->from("specific_price")
+        ->where("id_product in ($id_product_list)")
+        ->orderBy("reduction_type");
+$res_type = $db->executeS($query_discount_types);
+$rowsType = "";
+foreach($res_type as $record)
+{
+    $rowsType .= "<tr>"
+                ."<td style='text-align: right;'>"
+                    . "<input type='checkbox' "
+                            . "name='checkDiscountValue[]' "
+                            . "value='" . $record['reduction_type'] . "' "
+                            . "onclick='checkColumn(5,this,\"table_discounts\");'>"
+                . "</td>"
+                ."<td style='text-align: right;'>" . $record['reduction_type'] . "</td>"
+                ."</tr>";
+}
+
+$query_discounts
         ->select("sp.id_specific_price")
         ->select("sp.id_product as `product_id`")
         ->select("pl.name")
@@ -31,8 +80,9 @@ $query
         ->where("sp.id_product in ($id_product_list)")
         ->orderBy("pl.name");
 
-$result = $db->executeS($query);
+$result = $db->executeS($query_discounts);
 $rows = "";
+
 foreach($result as $record)
 {
     $rows .= "<tr>"
@@ -45,5 +95,12 @@ foreach($result as $record)
                 ."<td style='text-align: center;'>" . $record['to'] . "</td>"
             ."</tr>";
 }
-print $rows;
+
+$output = new stdClass();
+$output->rowsDiscount = $rows;
+$output->rowsValue    = $rowsValue;
+$output->rowsType     = $rowsType;
+        
+
+print Tools::jsonEncode($output);
 exit();

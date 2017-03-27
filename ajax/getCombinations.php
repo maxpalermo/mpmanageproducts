@@ -10,6 +10,10 @@ require_once(dirname(__FILE__).'/../../../config/config.inc.php');
 require_once(dirname(__FILE__).'/../../../init.php');
 
 $products = Tools::getValue("products");
+if (empty($products)) {
+    print "";
+    exit();
+}
 $id_product_list = implode(",",$products);
 $id_lang = Context::getContext()->language->id;
 
@@ -35,7 +39,7 @@ $query
         ->orderBy("pl.name");
 
 $result     = $db->executeS($query);
-$rows       = "";
+$rows       = [];
 $td         = [];
 $current_id = 0;
 
@@ -56,10 +60,14 @@ foreach($result as $record)
         } else {
             $td['quantity'] = $record['quantity'];
         }
+        
+        //Add product to list
+        $products_list[$td['product_id']] = ['id'=>$td['product_id'], 'name'=>$td['product_name']];
+        
     } elseif ($current_id==$record['id_product_attribute']) {
         $td['attribute_name'] .= " " . $record['attribute_name'];
     } elseif ($current_id!=$record['id_product_attribute']) {
-        $rows .= "<tr>"
+        $rows[] = "<tr>"
                 ."<td style='text-align: right;'>" . $td['id_product_attribute'] . " <input type='checkbox' name='checkDiscount[]' value='" . $td['id_product_attribute'] . "'> ". "</td>"
                 ."<td style='min-width: 200px;'>" . $td['attribute_name'] . "</td>"
                 ."<td style='text-align: right;'>" . $td['product_id'] . "</td>"
@@ -83,19 +91,40 @@ foreach($result as $record)
             $td['quantity'] = "<strong style='color: red;'>" . $record['quantity'] . "</strong>";
         } else {
             $td['quantity'] = $record['quantity'];
-        }
+        }    
+        //Add product to list
+        $products_list[$td['product_id']] = ['id'=>$td['product_id'], 'name'=>$td['product_name']];
     }
-    
-    $rows .= "<tr>"
-                ."<td style='text-align: right;'>" . $td['id_product_attribute'] . " <input type='checkbox' name='checkDiscount[]' value='" . $td['id_product_attribute'] . "'> ". "</td>"
-                ."<td style='min-width: 200px;'>" . $td['attribute_name'] . "</td>"
-                ."<td style='text-align: right;'>" . $td['product_id'] . "</td>"
-                ."<td style='min-width: 200px;'>" . $td['product_name'] . "</td>"
-                ."<td style='text-align: left;'>" . $td['reference'] . "</td>"
-                ."<td>" . $td['ean13'] . "</td>"
-                ."<td style='text-align: right;'>" . $td['price'] . "</td>"
-                ."<td style='text-align: right;'>" . $td['quantity'] . "</td>"
-            ."</tr>";
 }
-print $rows;
+
+$rows[] = "<tr>"
+    ."<td style='text-align: right;'>" . $td['id_product_attribute'] . " <input type='checkbox' name='checkDiscount[]' value='" . $td['id_product_attribute'] . "'> ". "</td>"
+    ."<td style='min-width: 200px;'>" . $td['attribute_name'] . "</td>"
+    ."<td style='text-align: right;'>" . $td['product_id'] . "</td>"
+    ."<td style='min-width: 200px;'>" . $td['product_name'] . "</td>"
+    ."<td style='text-align: left;'>" . $td['reference'] . "</td>"
+    ."<td>" . $td['ean13'] . "</td>"
+    ."<td style='text-align: right;'>" . $td['price'] . "</td>"
+    ."<td style='text-align: right;'>" . $td['quantity'] . "</td>"
+."</tr>";
+
+$product_rows = [];
+foreach($products_list as $product)
+{
+    $product_rows[] = "<tr>"
+                ."<td style='text-align: right;'>"
+                    . $product['id'] . " "
+                    . "<input type='checkbox' "
+                            . "name='checkCombinationProduct[]' "
+                            . "value='" . $product['id'] . "' "
+                            . "onclick='checkColumn(3,this,\"table_combinations\");'>"
+                . "</td>"
+                ."<td style='text-align: left;'>" . $product['name'] . "</td>"
+                ."</tr>";
+}
+
+$output = new stdClass();
+$output->rows = implode("\n",$rows);
+$output->products = implode("\n",$product_rows);
+print Tools::jsonEncode($output);
 exit();

@@ -21,7 +21,7 @@ $query
         ->from("category_lang");
 if($checked) {
     //Search by id
-    $query->where("id_category=$category");
+    $query->where("id_category in ($category)");
 } else {
     $category = addslashes($category);
     $query

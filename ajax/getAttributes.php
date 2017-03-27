@@ -10,6 +10,10 @@ require_once(dirname(__FILE__).'/../../../config/config.inc.php');
 require_once(dirname(__FILE__).'/../../../init.php');
 
 $id_attribute_group = Tools::getValue("id_attribute_group");
+if (empty($id_attribute_group)) {
+    print "";
+    exit();
+}
 $id_lang = Context::getContext()->language->id;
 
 $db = Db::getInstance();
