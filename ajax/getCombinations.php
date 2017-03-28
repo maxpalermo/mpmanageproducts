@@ -36,7 +36,8 @@ $query
         ->where("pa.id_product in ($id_product_list)")
         ->where("al.id_lang=$id_lang")
         ->orderBy("pa.id_product_attribute")
-        ->orderBy("pl.name");
+        ->orderBy("pl.name")
+        ->orderBy("pac.id_attribute");
 
 $result     = $db->executeS($query);
 $rows       = [];

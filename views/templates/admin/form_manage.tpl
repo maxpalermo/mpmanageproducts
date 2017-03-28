@@ -73,14 +73,27 @@
                             {$category_tree}
                             <br>
                             <div>
-                                <label class="control-label label-br" style="display: inline-block;">{l s='Category' mod='mpmanageproducts'}</label>
-                                <input type="text" id="input_category" value="" class="width-xl" style="display: inline-block">
-                                <input type="checkbox" id="input_check_category_by_id" value="0" style="display: inline-block">
-                                <label class="control-label label-br" style="display: inline-block">{l s='Search by id' mod='mpmanageproducts'}</label>
-                                <button type="button" value="1" id="submit_find_category" id="find_product" name="find_product" class="btn btn-default">
-                                    <i class="icon-search"></i> 
-                                    {l s='Find' mod='mpmanageproducts'}
-                                </button> 
+                                <div style="display: table;">
+                                    <div style="display: table-cell; vertical-align: middle;">
+                                        <label class="control-label label-br" style="display: inline-block;">{l s='Category' mod='mpmanageproducts'}</label>
+                                        <input type="text" id="input_category" value="" class="width-xl" style="display: inline-block">
+                                    </div>
+
+                                    <div style="display: table-cell; vertical-align: middle; padding-left: 10px;">
+                                        <input type="checkbox" id="input_check_category_by_id" value="0" style="display: inline-block">
+                                        <label class="control-label label-br" style="display: inline-block">{l s='Search by id' mod='mpmanageproducts'}</label>
+                                        <br>
+                                        <input type="checkbox" id="input_check_category_clear" value="0" style="display: inline-block">
+                                        <label class="control-label label-br" style="display: inline-block">{l s='New research' mod='mpmanageproducts'}</label>
+                                    </div>
+
+                                    <div style="display: table-cell; vertical-align: middle; padding-left: 10px;">
+                                        <button type="button" value="1" id="submit_find_category" id="find_product" name="find_product" class="btn btn-default">
+                                            <i class="icon-search"></i> 
+                                            {l s='Find' mod='mpmanageproducts'}
+                                        </button> 
+                                    </div>
+                                </div>
                             </div>    
                             <br style="clear: both;">
                             <label class="control-label label-br">{l s='Product associated' mod='mpmanageproducts'}</label>
@@ -271,11 +284,16 @@
                                     <li><a href="#tabs-combinations-2"><i class='icon-plus-circle'></i> {l s='Add new combinations' mod='mpmanageproducts'}</a></li>                  
                                 </ul>
                                 <div id="tabs-combinations-1">
+                                    <!-- ***************************
+                                         *** MANAGE COMBINATIONS ***
+                                         ***************************
+                                    -->
                                     <div>
                                         <p class='panel-heading' style="margin-top: 20px;">
                                             <img src='../modules/mpmanageproducts/views/img/attribute.png' alt='Config'>
                                             {l s='Product combinations' mod='mpmanageproducts'}
                                         </p>
+                                        <br>
                                         <p id='total_combinations_rows'>{l s='Total rows:' mod='mpmanageproducts'}</p>
                                         <table class='table' id='table_combinations' style='display: block; overflow-y: auto; height: 25em;'>
                                             <thead>
@@ -339,6 +357,137 @@
                                     </div>
                                 </div>
                                 <br style='clear: both;'>    
+                                <div id="tabs-combinations-2">
+                                    <!-- ************************
+                                         *** ADD COMBINATIONS ***
+                                         ************************
+                                    -->
+                                    <div>
+                                        <div style="display: inline-block; width: 48%; float: left;">
+                                            <p class='panel-heading' style="margin-top: 20px;">
+                                                <img src='../modules/mpmanageproducts/views/img/attribute.png' alt='Config'>
+                                                {l s='Attribute list' mod='mpmanageproducts'}
+                                            </p>
+                                            
+                                            <label class="control-label label-br">{l s='Attribute' mod='mpmanageproducts'}</label>
+                                            <select id="input_select_attribute" style="width: auto;">
+                                                
+                                            </select>
+                                            <table class="table" id="table_list_attributes" style='display: block; overflow-y: auto; height: 20em; width: 98%;'>
+                                                <thead>
+                                                    <tr>
+                                                        <th style='text-align: center;'><input type='checkbox' id='input_checkbox_list_attributes'></th>
+                                                        <th style="display: none;"></th>
+                                                        <th>{l s='Attribute' mod='mpmanageproducts'}</th>
+                                                        <th style="display: none;"></th>
+                                                        <th>{l s='Value' mod='mpmanageproducts'}</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div style="display: inline-block; width: 48%; float: right;">
+                                            <p class='panel-heading' style="margin-top: 20px;">
+                                                <img src='../modules/mpmanageproducts/views/img/attribute.png' alt='Config'>
+                                                {l s='List Products' mod='mpmanageproducts'}
+                                            </p>
+                                            <table class="table" id="table_list_products_combinations" style='display: block; overflow-y: auto; height: 20em; width: 98%;'>
+                                                <thead>
+                                                    <tr>
+                                                        <th style='text-align: right;'><input type='checkbox' id='input_checkbox_product_combinations'></th>
+                                                        <th>{l s='Product' mod='mpmanageproducts'}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                            <br>
+                                            <p class='panel-heading' style="margin-top: 20px;">
+                                                <img src='../modules/mpmanageproducts/views/img/attribute.png' alt='Config'>
+                                                {l s='Attribute combinations' mod='mpmanageproducts'}
+                                            </p>
+                                            <table class="table" id="table_list_attribute_combinations" style='display: block; overflow-y: auto; height: 20em; width: 98%;'>
+                                                <thead>
+                                                    <tr>
+                                                        <th style='text-align: right;'><input type='checkbox' id='input_checkbox_list_attributes'></th>
+                                                        <th>{l s='Attribute' mod='mpmanageproducts'}</th>
+                                                        <th style="display: none;"></th>
+                                                        <th>{l s='Value' mod='mpmanageproducts'}</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <br style="clear: both;">
+                                        <div>
+                                            <button type="button" value="1" id="submit_check_all_attribute_combination" name="submit_check_all_attribute_combination" class="btn btn-default">
+                                                <i class="icon-check"></i> 
+                                                {l s='Check all' mod='mpmanageproducts'}
+                                            </button> 
+                                            <button type="button" value="1" id="submit_uncheck_all_attribute_combination" name="submit_uncheck_all_attribute_combination" class="btn btn-default">
+                                                <i class="icon-check-empty"></i> 
+                                                {l s='Uncheck all' mod='mpmanageproducts'}
+                                            </button> 
+                                            <button type="button" value="1" id="submit_add_attribute_combination" name="submit_add_attribute_combination" class="btn btn-default">
+                                                <i class="icon-plus-circle"></i> 
+                                                {l s='Add selected' mod='mpmanageproducts'}
+                                            </button>
+                                            <button type="button" value="1" id="submit_clear_attribute_combination" name="submit_clear_attribute_combination" class="btn btn-default">
+                                                <i class="icon-remove-circle"></i> 
+                                                {l s='Clear combinations' mod='mpmanageproducts'}
+                                            </button>
+                                            <button type="button" value="1" id="submit_create_combination" name="submit_create_combination" class="btn btn-default">
+                                                <i class="icon-code-fork"></i> 
+                                                {l s='Create combinations' mod='mpmanageproducts'}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <br style="clear: both;">
+                                    <div>
+                                        <!--
+                                        ***********************
+                                        ** COMBINATION TABLE **
+                                        ***********************
+                                        -->
+                                        <p class='panel-heading' style="margin-top: 20px;">
+                                            <img src='../modules/mpmanageproducts/views/img/attribute.png' alt='Config'>
+                                            {l s='list combinations' mod='mpmanageproducts'}
+                                        </p>
+                                        <table class="table" id="table_list_combinations" style='display: block; overflow-y: auto; height: 20em; width: 98%;'>
+                                            <thead>
+                                                <tr>
+                                                    <th>id</th>
+                                                    <th>combinations</th>
+                                                    <th>id_product</th>
+                                                    <th>reference</th>
+                                                    <th>suppl ref</th>
+                                                    <th>location</th>
+                                                    <th>ean13</th>
+                                                    <th>upc</th>
+                                                    <th>wholesale_price</th>
+                                                    <th>price</th>
+                                                    <th>ecotax</th>
+                                                    <th>qty</th>
+                                                    <th>weight</th>
+                                                    <th>unit_price</th>
+                                                    <th>default_on</th>
+                                                    <th>min_qty</th>
+                                                    <th>available</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -406,6 +555,11 @@
                                 arr.push(index.id_category);
                             });
                             console.log("array length: " + arr.length);
+                            
+                            if($("#input_check_category_clear").is(":checked")) {
+                                $("input[name='categoryBox[]']").prop("checked",false);
+                            }
+                            
                             for(var i=0;i<arr.length;i++)
                             {
                                 var currIdx = arr[i];
@@ -454,7 +608,78 @@
                 uncheckSelectAll($("#table_discounts_products tbody tr input[type='checkbox']"));
             }
         });
+        
+        $("#submit_check_all_attribute_combination").on("click",function(){
+            checkSelectAll($("#table_list_attributes tbody tr input[type='checkbox']"));
+        });
+        $("#submit_uncheck_all_attribute_combination").on("click",function(){
+            uncheckSelectAll($("#table_list_attributes tbody tr input[type='checkbox']"));
+        });
+        $("#submit_add_attribute_combination").on("click",function(){
+            var checkboxes = $("#table_list_attributes >tbody input[type='checkbox']:checked");
+            addCombinations(checkboxes);
+        });
+        $("#submit_clear_attribute_combination").on("click",function(){
+            clearCombinations();
+        });
+        
+        $("#input_select_attribute").on("change",function(){
+            $.ajax({
+            method: 'POST',
+            url   : '../modules/mpmanageproducts/ajax/getAttributesList.php',
+            data  :
+                    {
+                        'id_attribute_group' : this.value
+                    },
+            success: function(response)
+                    {
+                        $("#table_list_attributes tbody").html(response);
+                    }
+            });
+        });
+        
+        $("#submit_create_combination").on("click",function(){
+            var checkboxes = $("#table_list_attribute_combinations >tbody input[type='checkbox']:checked");
+            var combinations = new Array(); //The length of array determines the combinations
+            var cartesian = new Array();
+            var list_attributes = new Array();
+            
+            $("#table_list_combinations tbody").html("");
+            
+            $(checkboxes).each(function(){ //Get unique id_attribute_group
+                var row = $(this).parent().parent();
+                var id_attribute_group = $(row).find("td:nth-child(2)").text();
+                if(!isInArray(id_attribute_group,combinations)) {
+                    combinations.push(id_attribute_group);
+                }                
+            });
+            
+            $(combinations).each(function(){ //divide values by array
+                var id = Number(this);
+                var subArray = new Array();
+                $(checkboxes).each(function(){
+                    var attrGroup = Number(this.value);
+                    if(attrGroup===id) {
+                        var attrValue = $(this).attr('id_attribute');
+                        subArray.push(attrValue);
+                    }
+                });
+                cartesian.push(subArray);
+            });
+            
+            //Combine arrays
+            list_attributes = cartesian_combination(cartesian);
+            
+            //Send Arrays to new Table combination row
+            $(list_attributes).each(function(){
+                addCombinationRow(this);
+            });
+        });
     });
+    
+    // *****************
+    // *** FUNCTIONS ***
+    // *****************
     
     function deleteRow(elem)
     {
@@ -547,6 +772,8 @@
                         listDiscounts(id_products);
                         listCombinations(id_products);
                         listProductsForDiscount('table_discounts_products');
+                        listProductCombinations();
+                        listAttributes();
                     }
         });
     }
@@ -608,6 +835,31 @@
                         $('#table_combinations tbody').html(objCombinations.rows);
                         $('#table_combinations_products tbody').html(objCombinations.products);
                         $("#total_combinations_rows").html("{l s='Total rows: ' mod='mpmanageproducts'}" + $("#table_combinations tbody tr:last").index() +1);
+                    }
+        });
+    }
+    
+    function listProductCombinations()
+    {
+        $.ajax({
+            method: 'POST',
+            url   : '../modules/mpmanageproducts/ajax/getProducts.php',
+            success: function(response)
+                    {
+                        $("#table_list_products_combinations tbody").html(response);
+                    }
+        });
+    }
+    
+    function listAttributes()
+    {
+        $.ajax({
+            method: 'POST',
+            url   : '../modules/mpmanageproducts/ajax/getAttributeGroups.php',
+            success: function(response)
+                    {
+                        $('#input_select_attribute').html("<option value='0'>{l s='Please select' mod='mpmanageproducts'}</option>");
+                        $('#input_select_attribute').append(response);
                     }
         });
     }
@@ -738,4 +990,63 @@
         
         return rows.join("\n");
     }
+    
+    function addCombinations(checkboxes)
+    {
+        $(checkboxes).each(function(){
+            var row = $(this).parent().parent();
+            $("#table_list_attribute_combinations tbody").append(row);
+        });
+    }
+    
+    function clearCombinations()
+    {
+        $("#table_list_attribute_combinations tbody").html("");
+        listAttributes();
+    }
+    
+    function isInArray(value, array) {
+        return array.indexOf(value) > -1;
+    }
+    
+    function addCombinationRow(combinations)
+    {
+        $.ajax({
+            method: 'POST',
+            url   : '../modules/mpmanageproducts/ajax/addCombinationRow.php',
+            data  :
+                    {
+                        'combinations' : combinations
+                    },
+            success: function(response)
+                    {
+                        console.log(response);
+                        $("#table_list_combinations tbody").append(response);
+                    }
+        });
+    }
+    
+    //+++++++++++++++++++++++++++++++++
+    //++ COMBINATION FUNCTIONS       ++
+    //++ Copyright 2012 Akseli Palén ++
+    //+++++++++++++++++++++++++++++++++
+    function cartesian_combination(array_container) {
+        var r = [];
+        var arg = array_container;
+        var max = arg.length-1;
+        
+        function helper(arr, i) {
+            for (var j=0, l=arg[i].length; j<l; j++) {
+                var a = arr.slice(0); // clone arr
+                a.push(arg[i][j]);
+                if (i===max)
+                    r.push(a);
+                else
+                    helper(a, i+1);
+            }
+        }
+        helper([], 0);
+        return r;
+    }
+    
 </script>

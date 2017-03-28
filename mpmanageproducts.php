@@ -91,8 +91,7 @@ class MpManageProducts extends Module
       
     public function uninstall()
     {
-      if (!parent::uninstall() ||
-          !$this->uninstallSQL()) {
+      if (!parent::uninstall()) {
         return false;
       }
       return true;
