@@ -623,11 +623,11 @@
                                         </table>
                                         <br>
                                         <div class='panel-footer'>
-                                            <button type="button" value="1" id="submit_clear_combination_list" class="btn btn-default pull-right">
+                                            <button type="button" value="1" id="submit_clear_table_list_combination" class="btn btn-default pull-right">
                                                 <i class="process-icon-dropdown"></i> 
                                                 {l s='Clear combinations' mod='mpmanageproducts'}
                                             </button>
-                                            <button type="button" value="1" id="submit_save_combination_list" class="btn btn-default pull-right">
+                                            <button type="button" value="1" id="submit_save_table_list_combination" class="btn btn-default pull-right">
                                                 <i class="process-icon-save"></i> 
                                                 {l s='Save combinations' mod='mpmanageproducts'}
                                             </button>
@@ -846,11 +846,11 @@ ion<script type="text/javascript">
                 'table_list_attribute_combination');
         });
         
-        $("#submit_clear_combination_list").on("click",function(){
-            $("#table_list_products_combinations >tbody").html("");
+        $("#submit_clear_table_list_combination").on("click",function(){
+            $("#table_list_combinations >tbody").html("");
         });
         
-        $("#submit_save_combination_list").on("click",function(){
+        $("#submit_save_table_list_combination").on("click",function(){
             
             var rows = new Array();
             $("#table_list_combinations >tbody tr").each(function(){
@@ -1336,7 +1336,7 @@ ion<script type="text/javascript">
     
     function clearCombinations()
     {
-        $("#table_list_attribute_combinations tbody").html("");
+        $("#table_list_combinations tbody").html("");
         listAttributes();
     }
     

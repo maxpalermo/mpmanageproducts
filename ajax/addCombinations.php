@@ -16,7 +16,23 @@ exit();
 
 foreach($rows as $row) 
 {
-    
+    $products = explode(";",$row[1]);
+    foreach($products as $product)
+    {
+        $objProduct = new ProductCore($product);
+        $ean13 = substr($row[5], 1, 13);
+        if($row[15]==1) {
+            $tax = ($objProduct->tax_rate+100)/100;
+            
+            $wholesale_price = number_format($row[7] / $tax,6);
+            $price           = number_format($row[8] / $tax,6);
+            $ecotax          = number_format($row[9] / $tax,6);
+            $unit_price      = number_format($row[12] / $tax,6);
+            
+            
+            
+        }
+    }
     $comb = new CombinationCore();
     
     $comb->id_product = $combination['id_product'];
