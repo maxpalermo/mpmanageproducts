@@ -10,13 +10,20 @@ require_once(dirname(__FILE__).'/../../../config/config.inc.php');
 require_once(dirname(__FILE__).'/../../../init.php');
 
 $combinations = Tools::getValue("combinations");
-$id_product   = Tools::getValue("id_product",'0');
+$id_products  = Tools::getValue("id_products");
+
+if(empty($combinations) ||empty($id_products)) {
+    print "no values";
+    exit();
+}
+
+$actions = "<i class='icon-edit' onclick='editRow(this);'></i>  " 
+    . "<i class='icon-remove' onclick='deleteRow(this);'>"; 
 
 $row = 
     "<tr>"
-        ."<td>0</td>"
         ."<td>" . implode(";", $combinations) . "</td>"
-        ."<td>$id_product</td>"
+        ."<td>" . implode(";", $id_products) . "</td>"
         ."<td></td>"
         ."<td></td>"
         ."<td></td>"
@@ -31,6 +38,8 @@ $row =
         ."<td></td>"
         ."<td style='text-align: right;'>0</td>"
         ."<td style='text-align: right;'>0000-00-00 00:00:00</td>"
+        ."<td></td>"
+        ."<td style='text-align: center;'>" . $actions . "</td>"
     ."</tr>";
 print $row;
 exit();

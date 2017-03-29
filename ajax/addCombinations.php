@@ -9,10 +9,12 @@
 require_once(dirname(__FILE__).'/../../../config/config.inc.php');
 require_once(dirname(__FILE__).'/../../../init.php');
 
-$combinations = Tools::getValue("combinations");
-$id_lang = Context::getContext()->language->id;
+$rows = Tools::getValue("rows");
 
-foreach($combinations as $combination) 
+print_r($rows);
+exit();
+
+foreach($rows as $row) 
 {
     
     $comb = new CombinationCore();

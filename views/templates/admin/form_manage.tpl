@@ -42,10 +42,140 @@
     }
     a:hover
     {
+        color: #0083c4;
         text-decoration: #0083c4;
         cursor: pointer;
     }
+    i:hover
+    {
+        color: #0083c4;
+        text-decoration: #0083c4;
+        cursor: pointer;
+    }
+    .overlay
+    {
+        opacity:1;
+        background-color:#ccc;
+        position:fixed;
+        width:100%;
+        height:100%;
+        top: 0;
+        left: 0;
+        z-index:1000;
+        display: none;
+        overflow-y: auto;
+    }
+    
+    .inner-overlay 
+    {
+        display: block;
+        margin: 0 auto;
+        width: 80%;
+        opacity: 1;
+        position: relative;
+        top: 50px;
+        max-height: 80%;
+        height: 80%;
+    }
 </style>
+
+<div class="overlay" id="form_edit_row">
+    <div class="inner-overlay">
+        <div class='panel' id='panel-config'>
+            <div class='panel-heading' style='overflow: hidden; height: auto !important;'>
+                <img src='../modules/mpmanageproducts/views/img/config.png' alt='Config'>
+                {l s='Edit combination Row' mod='mpmanageproducts'}
+                <i class='icon-bookmark' style='margin: 20px; margin-right: 5px;'></i>
+                <span id='span_product_name' style='color: #0083c4;'></span>               
+                
+                <i class='icon-code-fork' style='margin: 20px; margin-right: 5px;'></i>
+                <span id='span_combination' style='color: #0083c4;'></span>
+            </div> 
+            <label class="control-label col-lg-2" >{l s='Row' mod='mpmanageproducts'}</label>
+            <input type="text" id="row_index" value="" class="width-xl" readonly="readonly">
+            <br>
+            <label class="control-label col-lg-2" >{l s='Reference' mod='mpmanageproducts'}</label>
+            <input type="text" id="row_reference" value="" class="width-xl" >
+            <br>
+            <label class="control-label col-lg-2" >{l s='Supplier referenece' mod='mpmanageproducts'}</label>
+            <input type="text" id="row_supplier_reference" value="" class="width-xl" >
+            <br>
+            <label class="control-label col-lg-2" >{l s='Location' mod='mpmanageproducts'}</label>
+            <input type="text" id="row_location" value="" class="width-xl" >
+            <br>
+            <label class="control-label col-lg-2" >{l s='EAN13' mod='mpmanageproducts'}</label>
+            <input type="text" id="row_ean_13" value="" class="width-xl" >
+            <br>
+            <label class="control-label col-lg-2" >{l s='UPC' mod='mpmanageproducts'}</label>
+            <input type="text" id="row_upc" value="" class="width-xl" >
+            <br>
+            <label class="control-label col-lg-2" >{l s='Wholesale price' mod='mpmanageproducts'}</label>
+            <input type="text" id="row_wholesale_price" value="" class="width-xl" >
+            <br>
+            <label class="control-label col-lg-2" >{l s='Price' mod='mpmanageproducts'}</label>
+            <input type="text" id="row_price" value="" class="width-xl" >
+            <br>
+            <label class="control-label col-lg-2" >{l s='Ecotax' mod='mpmanageproducts'}</label>
+            <input type="text" id="row_ecotax" value="" class="width-xl" >
+            <br>
+            <label class="control-label col-lg-2" >{l s='Quantity' mod='mpmanageproducts'}</label>
+            <input type="text" id="row_quantity" value="" class="width-xl" >
+            <br>
+            <label class="control-label col-lg-2" >{l s='Weight' mod='mpmanageproducts'}</label>
+            <input type="text" id="row_weight" value="" class="width-xl" >
+            <br>
+            <label class="control-label col-lg-2" >{l s='Unit price' mod='mpmanageproducts'}</label>
+            <input type="text" id="row_unit_price" value="" class="width-xl" >
+            <br>
+            <label class="control-label col-lg-2" >{l s='Minimum quantity' mod='mpmanageproducts'}</label>
+            <input type="text" id="row_min_quantity" value="" class="width-xl" >
+            <br>
+            <label class="control-label col-lg-2" >{l s='Available from' mod='mpmanageproducts'}</label>
+            <input type="text" id="row_available" value="" class="width-xl" >
+            <br>
+            <div class='form-group'>
+                <label class="control-label col-lg-2 "><span>{l s='Default ON' mod='mpmanageproduct'}</span></label>
+                <div class="col-lg-9">
+                    <input type='hidden' id='row_default' value='1'>
+                    <span class="switch prestashop-switch fixed-width-lg">
+                        <input type="radio" value="1" name="switch_default" id="switch_default_on" checked="checked" onclick='set_row_default_on(this);'>
+                        <label for="switch_default_on">{l s='YES' mod='mpmanageproduct'}</label>
+                        <input type="radio" value="0" name="switch_default" id="switch_default_off" onclick='set_row_default_off(this);'>
+                        <label for="switch_default_off">{l s='NO' mod='mpmanageproduct'}</label>
+                        <a class="slide-button btn"></a>
+                    </span>
+                </div>
+            </div>
+            <br>
+            <div class='form-group'>
+                <label class="control-label col-lg-2 "><span>{l s='Prices include Taxes?' mod='mpmanageproduct'}</span></label>
+                <div class="col-lg-9">
+                    <input type='hidden' id='row_price_tax' value='1'>
+                    <span class="switch prestashop-switch fixed-width-lg">
+                        <input type="radio" value="1" name="switch_price_tax" id="switch_price_tax_on" checked="checked" onclick='set_row_default_on(this);'>
+                        <label for="switch_price_tax_on">{l s='YES' mod='mpmanageproduct'}</label>
+                        <input type="radio" value="0" name="switch_price_tax" id="switch_price_tax_off" onclick='set_row_default_off(this);'>
+                        <label for="switch_price_tax_off">{l s='NO' mod='mpmanageproduct'}</label>
+                        <a class="slide-button btn"></a>
+                    </span>
+                </div>
+            </div>
+            <br style='clear: both;'>
+            <br>
+            <div class='panel-footer'>
+                <button type="button" value="1" id="submit_row_save" class="btn btn-default pull-right" onclick="saveRow();">
+                    <i class="process-icon-save"></i> 
+                    {l s='Save' mod='mpmanageproducts'}
+                </button> 
+                <button type="button" value="1" id="submit_row_cancel" class="btn btn-default pull-right" onclick="$('#form_edit_row').fadeOut();">
+                    <i class="process-icon-cancel"></i> 
+                    {l s='Cancel' mod='mpmanageproducts'}
+                </button> 
+            </div>
+        </div>
+            
+    </div>
+</div>
 
 <form class='defaultForm form-horizontal' method='post' id="form_manage_products">
     <div class='panel' id='panel-config'>
@@ -75,7 +205,7 @@
                             <div>
                                 <div style="display: table;">
                                     <div style="display: table-cell; vertical-align: middle;">
-                                        <label class="control-label label-br" style="display: inline-block;">{l s='Category' mod='mpmanageproducts'}</label>
+                                        <label class="control-label label-br" >{l s='Category' mod='mpmanageproducts'}</label>
                                         <input type="text" id="input_category" value="" class="width-xl" style="display: inline-block">
                                     </div>
 
@@ -363,16 +493,15 @@
                                          ************************
                                     -->
                                     <div>
-                                        <div style="display: inline-block; width: 48%; float: left;">
+                                        <div style="display: inline-block; width: 32%; float: left; border-right: 1px solid #EEEEEE; padding-left: 10px;">
                                             <p class='panel-heading' style="margin-top: 20px;">
                                                 <img src='../modules/mpmanageproducts/views/img/attribute.png' alt='Config'>
                                                 {l s='Attribute list' mod='mpmanageproducts'}
+                                                <select id="input_select_attribute" style="width: auto; display: inline-block; margin-left: 30px;">
+
+                                                </select>
+                                            <br>
                                             </p>
-                                            
-                                            <label class="control-label label-br">{l s='Attribute' mod='mpmanageproducts'}</label>
-                                            <select id="input_select_attribute" style="width: auto;">
-                                                
-                                            </select>
                                             <table class="table" id="table_list_attributes" style='display: block; overflow-y: auto; height: 20em; width: 98%;'>
                                                 <thead>
                                                     <tr>
@@ -388,8 +517,23 @@
 
                                                 </tbody>
                                             </table>
+                                            <br>
+                                            <div>
+                                                <button type="button" value="1" id="submit_check_all_attribute_combination" name="submit_check_all_attribute_combination" class="btn btn-default">
+                                                    <i class="icon-check"></i> 
+                                                    {l s='Check all' mod='mpmanageproducts'}
+                                                </button> 
+                                                <button type="button" value="1" id="submit_uncheck_all_attribute_combination" name="submit_uncheck_all_attribute_combination" class="btn btn-default">
+                                                    <i class="icon-check-empty"></i> 
+                                                    {l s='Uncheck all' mod='mpmanageproducts'}
+                                                </button> 
+                                                <button type="button" value="1" id="submit_add_attribute_combination" name="submit_add_attribute_combination" class="btn btn-default">
+                                                    <i class="icon-plus-circle"></i> 
+                                                    {l s='Add selected' mod='mpmanageproducts'}
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div style="display: inline-block; width: 48%; float: right;">
+                                        <div style="display: inline-block; width: 32%; float: left; border-right: 1px solid #EEEEEE; padding-left: 10px;">
                                             <p class='panel-heading' style="margin-top: 20px;">
                                                 <img src='../modules/mpmanageproducts/views/img/attribute.png' alt='Config'>
                                                 {l s='List Products' mod='mpmanageproducts'}
@@ -405,7 +549,8 @@
 
                                                 </tbody>
                                             </table>
-                                            <br>
+                                        </div>
+                                        <div style="display: inline-block; width: 32%; float: left; padding-left: 10px;">            
                                             <p class='panel-heading' style="margin-top: 20px;">
                                                 <img src='../modules/mpmanageproducts/views/img/attribute.png' alt='Config'>
                                                 {l s='Attribute combinations' mod='mpmanageproducts'}
@@ -413,7 +558,7 @@
                                             <table class="table" id="table_list_attribute_combinations" style='display: block; overflow-y: auto; height: 20em; width: 98%;'>
                                                 <thead>
                                                     <tr>
-                                                        <th style='text-align: right;'><input type='checkbox' id='input_checkbox_list_attributes'></th>
+                                                        <th style='text-align: right;'><input type='checkbox' id='input_checkbox_list_attribute_combination'></th>
                                                         <th>{l s='Attribute' mod='mpmanageproducts'}</th>
                                                         <th style="display: none;"></th>
                                                         <th>{l s='Value' mod='mpmanageproducts'}</th>
@@ -424,30 +569,19 @@
 
                                                 </tbody>
                                             </table>
+                                            <br>
+                                            <div>
+                                                <button type="button" value="1" id="submit_clear_attribute_combination" name="submit_clear_attribute_combination" class="btn btn-default">
+                                                    <i class="icon-remove-circle"></i> 
+                                                    {l s='Clear combinations' mod='mpmanageproducts'}
+                                                </button>
+                                                <button type="button" value="1" id="submit_create_combination" name="submit_create_combination" class="btn btn-default">
+                                                    <i class="icon-code-fork"></i> 
+                                                    {l s='Create combinations' mod='mpmanageproducts'}
+                                                </button>
+                                            </div>
                                         </div>
                                         <br style="clear: both;">
-                                        <div>
-                                            <button type="button" value="1" id="submit_check_all_attribute_combination" name="submit_check_all_attribute_combination" class="btn btn-default">
-                                                <i class="icon-check"></i> 
-                                                {l s='Check all' mod='mpmanageproducts'}
-                                            </button> 
-                                            <button type="button" value="1" id="submit_uncheck_all_attribute_combination" name="submit_uncheck_all_attribute_combination" class="btn btn-default">
-                                                <i class="icon-check-empty"></i> 
-                                                {l s='Uncheck all' mod='mpmanageproducts'}
-                                            </button> 
-                                            <button type="button" value="1" id="submit_add_attribute_combination" name="submit_add_attribute_combination" class="btn btn-default">
-                                                <i class="icon-plus-circle"></i> 
-                                                {l s='Add selected' mod='mpmanageproducts'}
-                                            </button>
-                                            <button type="button" value="1" id="submit_clear_attribute_combination" name="submit_clear_attribute_combination" class="btn btn-default">
-                                                <i class="icon-remove-circle"></i> 
-                                                {l s='Clear combinations' mod='mpmanageproducts'}
-                                            </button>
-                                            <button type="button" value="1" id="submit_create_combination" name="submit_create_combination" class="btn btn-default">
-                                                <i class="icon-code-fork"></i> 
-                                                {l s='Create combinations' mod='mpmanageproducts'}
-                                            </button>
-                                        </div>
                                     </div>
                                     <br style="clear: both;">
                                     <div>
@@ -463,7 +597,6 @@
                                         <table class="table" id="table_list_combinations" style='display: block; overflow-y: auto; height: 20em; width: 98%;'>
                                             <thead>
                                                 <tr>
-                                                    <th>id</th>
                                                     <th>combinations</th>
                                                     <th>id_product</th>
                                                     <th>reference</th>
@@ -480,12 +613,25 @@
                                                     <th>default_on</th>
                                                     <th>min_qty</th>
                                                     <th>available</th>
+                                                    <th>tax included</th>
+                                                    <th>actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
 
                                             </tbody>
                                         </table>
+                                        <br>
+                                        <div class='panel-footer'>
+                                            <button type="button" value="1" id="submit_clear_combination_list" class="btn btn-default pull-right">
+                                                <i class="process-icon-dropdown"></i> 
+                                                {l s='Clear combinations' mod='mpmanageproducts'}
+                                            </button>
+                                            <button type="button" value="1" id="submit_save_combination_list" class="btn btn-default pull-right">
+                                                <i class="process-icon-save"></i> 
+                                                {l s='Save combinations' mod='mpmanageproducts'}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -502,12 +648,14 @@
     </div>
 </form>
                             
-<script type="text/javascript">
+ion<script type="text/javascript">
     $(document).ready(function(){
         $("#input_discount_from").datepicker();
         $("#input_discount_from").datepicker("option","dateFormat","yy-mm-dd");
         $("#input_discount_to").datepicker();
         $("#input_discount_to").datepicker("option","dateFormat","yy-mm-dd");
+        $("#row_available").datepicker();
+        $("#row_available").datepicker("option","dateFormat","yy-mm-dd");
         $("#tabs").tabs();
         $("#tabs-discounts").tabs();
         $("#tabs-combinations").tabs();
@@ -640,6 +788,7 @@
         
         $("#submit_create_combination").on("click",function(){
             var checkboxes = $("#table_list_attribute_combinations >tbody input[type='checkbox']:checked");
+            var id_products = $("#table_list_products_combinations >tbody input[type='checkbox']:checked");
             var combinations = new Array(); //The length of array determines the combinations
             var cartesian = new Array();
             var list_attributes = new Array();
@@ -672,7 +821,73 @@
             
             //Send Arrays to new Table combination row
             $(list_attributes).each(function(){
-                addCombinationRow(this);
+                addCombinationRow(this,id_products);
+            });
+        });
+        
+        $("#input_checkbox_list_attributes").on("click",function(){
+            checkTable(
+                $(this).is(":checked"),
+                $("#table_list_attributes >tbody input[type='checkbox']"),
+                'table_list_attributes');
+        });
+        
+        $("#input_checkbox_product_combinations").on("click",function(){
+            checkTable(
+                $(this).is(":checked"),
+                $("#table_list_products_combinations >tbody input[type='checkbox']"),
+                'table_list_product_combinations');
+        });
+        
+        $("#input_checkbox_list_attribute_combination").on("click",function(){
+            checkTable(
+                $(this).is(":checked"),
+                $("#table_list_attribute_combinations >tbody input[type='checkbox']"),
+                'table_list_attribute_combination');
+        });
+        
+        $("#submit_clear_combination_list").on("click",function(){
+            $("#table_list_products_combinations >tbody").html("");
+        });
+        
+        $("#submit_save_combination_list").on("click",function(){
+            
+            var rows = new Array();
+            $("#table_list_combinations >tbody tr").each(function(){
+                var row = new Array();
+                row.push($(this).find("td:nth-child(1)").text()); // attributes
+                row.push($(this).find("td:nth-child(2)").text()); // products
+                row.push($(this).find("td:nth-child(3)").text()); // reference
+                row.push($(this).find("td:nth-child(4)").text()); // supplier reference
+                row.push($(this).find("td:nth-child(5)").text()); // location
+                row.push($(this).find("td:nth-child(6)").text()); // ean13
+                row.push($(this).find("td:nth-child(7)").text()); // upc
+                row.push($(this).find("td:nth-child(8)").text()); // wholesale price
+                row.push($(this).find("td:nth-child(9)").text()); // price
+                row.push($(this).find("td:nth-child(10)").text()); // ecotax
+                row.push($(this).find("td:nth-child(11)").text()); // quantity
+                row.push($(this).find("td:nth-child(12)").text()); // weight
+                row.push($(this).find("td:nth-child(13)").text()); // unit price
+                row.push($(this).find("td:nth-child(14)").text()); // default on
+                row.push($(this).find("td:nth-child(15)").text()); // min quantity
+                row.push($(this).find("td:nth-child(16)").text()); // available
+                row.push($(this).find("td:nth-child(17)").text()); // price included tax
+                
+                rows.push(row);
+            });
+            
+            $.ajax({
+            method: 'POST',
+            url   : '../modules/mpmanageproducts/ajax/addCombinations.php',
+            data  :
+                    {
+                        'rows' : rows
+                    },
+            success: function(response)
+                    {
+                        alert(response);
+                        $("#table_list_products_combinations >tbody").html("");
+                    }
             });
         });
     });
@@ -681,10 +896,134 @@
     // *** FUNCTIONS ***
     // *****************
     
+    function set_row_default_on(elem)
+    {
+        var input = $(elem).parent().prev();
+        $(input).val("1");
+    }
+    
+    function set_row_default_off(elem)
+    {
+        var input = $(elem).parent().prev();
+        $(input).val("0");
+    }
+    
+    function switch_change(elem)
+    {
+        var switch_on  = String(elem).replace("row","switch") + "_on";
+        var switch_off = String(elem).replace("row","switch") + "_off";
+        
+        console.log("switch id: " + elem);
+        console.log("switch value: " + $("#" + elem).val());
+        console.log("on value : " + switch_on);
+        console.log("off value: " + switch_off);
+        
+        $("#" + switch_on).removeAttr("checked");
+        $("#" + switch_off).removeAttr("checked");
+        if($("#" + elem).val()==1) {
+            $("#" + switch_on).attr("checked",true);
+        } else {
+            $("#" + switch_off).attr("checked",true);
+        }
+    }
+    
+    function checkTable(checked,checkbox,tablename)
+    {
+        console.log("checktable: " + tablename);
+        console.log(checkbox);
+        if(checked) {
+            checkSelectAll($("#" + tablename + " tbody tr input[type='checkbox']"));
+        } else {
+            uncheckSelectAll($("#" + tablename + " tbody tr input[type='checkbox']"));
+        }
+    }
+    
+    function checkSelectAll(check)
+    {
+        $(check).each(function(){
+            $(this).prop("checked",true);
+        });
+    }
+    
+    function uncheckSelectAll(check)
+    {
+        $(check).each(function(){
+            $(this).prop("checked",false);
+        });
+    }
+    
+    function editRow(elem)
+    {
+        var row = $(elem).parent().parent();
+        var row_index = row.index();
+        var arr_combinations = $(row).find("td:nth-child(1)").text();
+        var arr_products = $(row).find("td:nth-child(2)").text();
+        
+        $.ajax({
+            method: 'POST',
+            url   : '../modules/mpmanageproducts/ajax/getCombinationsInfo.php',
+            data  :
+                    {
+                        'combinations': arr_combinations,
+                        'products' : arr_products
+                    },
+            success: function(response)
+                    {
+                        var obj = JSON.parse(response);
+                        $("#span_combination").html(obj.combinations);
+                        $("#span_product_name").html(obj.products);
+                    }
+        });
+        
+        $("#row_index").val(row_index);
+        $("#row_reference").val($(row).find("td:nth-child(3)").text());
+        $("#row_supplier_reference").val($(row).find("td:nth-child(4)").text());
+        $("#row_location").val($(row).find("td:nth-child(5)").text());
+        $("#row_ean_13").val($(row).find("td:nth-child(6)").text());
+        $("#row_upc").val($(row).find("td:nth-child(7)").text());
+        $("#row_wholesale_price").val($(row).find("td:nth-child(8)").text());
+        $("#row_price").val($(row).find("td:nth-child(9)").text());
+        $("#row_ecotax").val($(row).find("td:nth-child(10)").text());
+        $("#row_quantity").val($(row).find("td:nth-child(11)").text());
+        $("#row_weight").val($(row).find("td:nth-child(12)").text());
+        $("#row_unit_price").val($(row).find("td:nth-child(13)").text());
+        $("#row_default").val($(row).find("td:nth-child(14)").text());
+        switch_change("row_default");
+        $("#row_min_quantity").val($(row).find("td:nth-child(15)").text());
+        $("#row_available").val($(row).find("td:nth-child(16)").text());
+        $("#row_price_tax").val($(row).find("td:nth-child(17)").text());
+        switch_change("row_price_tax");
+        
+        $("#form_edit_row").fadeIn();
+    }
+    
+    function saveRow()
+    {
+        var row_index = Number($("#row_index").val()) +1;
+        var row = $("#table_list_combinations tbody tr:nth-child(" + row_index + ")");
+        $(row).find("td:nth-child(3)").text($("#row_reference").val());
+        $(row).find("td:nth-child(4)").text($("#row_supplier_reference").val());
+        $(row).find("td:nth-child(5)").text($("#row_location").val());
+        $(row).find("td:nth-child(6)").text($("#row_ean_13").val());
+        $(row).find("td:nth-child(7)").text($("#row_upc").val());
+        $(row).find("td:nth-child(8)").text($("#row_wholesale_price").val());
+        $(row).find("td:nth-child(9)").text($("#row_price").val());
+        $(row).find("td:nth-child(10)").text($("#row_ecotax").val());
+        $(row).find("td:nth-child(11)").text($("#row_quantity").val());
+        $(row).find("td:nth-child(12)").text($("#row_weight").val());
+        $(row).find("td:nth-child(13)").text($("#row_unit_price").val());
+        $(row).find("td:nth-child(14)").text($("#row_default").val());
+        $(row).find("td:nth-child(15)").text($("#row_min_quantity").val());
+        $(row).find("td:nth-child(16)").text($("#row_available").val());
+        $(row).find("td:nth-child(17)").text($("#row_price_tax").val());
+        
+        $("#form_edit_row").fadeOut();
+    }
+    
     function deleteRow(elem)
     {
-            var row = $(elem).parent().parent();
-            $(row).remove();
+        var row = $(elem).parent().parent();
+        $(row).remove();
     }
     
     function addFeature()
@@ -841,9 +1180,19 @@
     
     function listProductCombinations()
     {
+        var options = $("#input_list_products option");
+        var values = new Array();
+        $(options).each(function(){
+            values.push(this.value);
+        });
+        
         $.ajax({
             method: 'POST',
             url   : '../modules/mpmanageproducts/ajax/getProducts.php',
+            data  :
+                    {
+                        id_products : values
+                    },
             success: function(response)
                     {
                         $("#table_list_products_combinations tbody").html(response);
@@ -868,20 +1217,6 @@
     {
         var products = getListFromSelect('input_list_products');
         $("#" + tablename + " tbody").html(products);
-    }
-    
-    function checkSelectAll(check)
-    {
-        $(check).each(function(){
-            $(this).prop("checked",true);
-        });
-    }
-    
-    function uncheckSelectAll(check)
-    {
-        $(check).each(function(){
-            $(this).prop("checked",false);
-        });
     }
     
     function deleteFromTable(tablename,fieldname,values)
@@ -1009,14 +1344,20 @@
         return array.indexOf(value) > -1;
     }
     
-    function addCombinationRow(combinations)
+    function addCombinationRow(combinations,id_products)
     {
+        var id_products_value = new Array();
+        $(id_products).each(function(){
+            id_products_value.push(this.value);
+        });
+        
         $.ajax({
             method: 'POST',
             url   : '../modules/mpmanageproducts/ajax/addCombinationRow.php',
             data  :
                     {
-                        'combinations' : combinations
+                        'combinations' : combinations,
+                        'id_products'  : id_products_value
                     },
             success: function(response)
                     {

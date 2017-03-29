@@ -11,7 +11,7 @@ require_once(dirname(__FILE__).'/../../../init.php');
 
 $id_products = Tools::getValue("id_products");
 if (empty($id_products)) {
-    print "";
+    print "getProducts: No values";
     exit();
 }
 $id_lang = Context::getContext()->language->id;
@@ -25,7 +25,7 @@ $query
         ->from("product_lang")
         ->where("id_product in(" . implode(",",$id_products) . ")")
         ->where("id_lang = $id_lang")
-        ->orderBy('al.name');
+        ->orderBy('name');
 
 $result = $db->executeS($query);
 $rows = "";
