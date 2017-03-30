@@ -17,7 +17,7 @@ if(empty($combinations) ||empty($id_products)) {
     exit();
 }
 
-$actions = "<i class='icon-edit' onclick='editRow(this);'></i>  " 
+$actions = "<i class='icon-edit' onclick='editRow(this,3);'></i>  " 
     . "<i class='icon-remove' onclick='deleteRow(this);'>"; 
 
 $row = 

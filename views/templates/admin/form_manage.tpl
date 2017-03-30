@@ -443,48 +443,52 @@
                                             </tbody>
                                         </table>
                                     </div>
-
-                                    <p class='panel-heading' style="margin-top: 20px;">
-                                        <img src='../modules/mpmanageproducts/views/img/table.png' alt='table'>
-                                        {l s='Product List' mod='mpmanageproducts'}
-                                    </p> 
-
                                     <div>
-                                        <div style="float: left; margin-right: 20px;">
-                                            <table class="table" id="table_combinations_products" style='display: block; overflow-y: auto; height: 10em;'>
-                                                <thead>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th>{l s='Products' mod='mpmanageproducts'}</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                        <div style="float: left; margin-right: 10px; border-right: 1px solid #eeeeee;">
+                                            <p class='panel-heading' style="margin-top: 20px;">
+                                                <img src='../modules/mpmanageproducts/views/img/table.png' alt='table'>
+                                                {l s='Product List' mod='mpmanageproducts'}
+                                            </p> 
 
-                                                </tbody>
-                                            </table>
+                                            <div>
+                                                <div style="float: left; margin-right: 20px;">
+                                                    <table class="table" id="table_combinations_products" style='display: block; overflow-y: auto; height: 10em;'>
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>{l s='Products' mod='mpmanageproducts'}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="float: left; padding-left: 10px;">
+                                            <p class='panel-heading' style="margin-top: 20px;">
+                                                <img src='../modules/mpmanageproducts/views/img/tools.png' alt='table'>
+                                                {l s='Manage options' mod='mpmanageproducts'}
+                                            </p>  
+
+                                            <div>
+                                                <button type="button" value="1" id="submit_check_all_combination" class="btn btn-default">
+                                                    <i class="icon-check"></i> 
+                                                    {l s='Check all' mod='mpmanageproducts'}
+                                                </button> 
+                                                <button type="button" value="1" id="submit_uncheck_all_combination" class="btn btn-default">
+                                                    <i class="icon-check-empty"></i> 
+                                                    {l s='Uncheck all' mod='mpmanageproducts'}
+                                                </button> 
+                                                <button type="button" value="1" id="submit_delete_combination" class="btn btn-default">
+                                                    <i class="icon-trash"></i> 
+                                                    {l s='Delete selected' mod='mpmanageproducts'}
+                                                </button> 
+                                            </div>
                                         </div>
                                     </div>
-                                    <br style='clear: both;'>
-
-                                    <p class='panel-heading' style="margin-top: 20px;">
-                                        <img src='../modules/mpmanageproducts/views/img/tools.png' alt='table'>
-                                        {l s='Manage options' mod='mpmanageproducts'}
-                                    </p>  
-
-                                    <div>
-                                        <button type="button" value="1" id="submit_check_all_combination" name="submit_check_all_combinations" class="btn btn-default">
-                                            <i class="icon-check"></i> 
-                                            {l s='Check all' mod='mpmanageproducts'}
-                                        </button> 
-                                        <button type="button" value="1" id="submit_uncheck_all_combination" name="submit_uncheck_all_combinations" class="btn btn-default">
-                                            <i class="icon-check-empty"></i> 
-                                            {l s='Uncheck all' mod='mpmanageproducts'}
-                                        </button> 
-                                        <button type="button" value="1" id="submit_delete_combination" name="submit_delete_combinations" class="btn btn-default">
-                                            <i class="icon-trash"></i> 
-                                            {l s='Delete selected' mod='mpmanageproducts'}
-                                        </button> 
-                                    </div>
+                                    <br style='clear: both;'>  
                                 </div>
                                 <br style='clear: both;'>    
                                 <div id="tabs-combinations-2">
@@ -536,23 +540,6 @@
                                         <div style="display: inline-block; width: 32%; float: left; border-right: 1px solid #EEEEEE; padding-left: 10px;">
                                             <p class='panel-heading' style="margin-top: 20px;">
                                                 <img src='../modules/mpmanageproducts/views/img/attribute.png' alt='Config'>
-                                                {l s='List Products' mod='mpmanageproducts'}
-                                            </p>
-                                            <table class="table" id="table_list_products_combinations" style='display: block; overflow-y: auto; height: 20em; width: 98%;'>
-                                                <thead>
-                                                    <tr>
-                                                        <th style='text-align: right;'><input type='checkbox' id='input_checkbox_product_combinations'></th>
-                                                        <th>{l s='Product' mod='mpmanageproducts'}</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div style="display: inline-block; width: 32%; float: left; padding-left: 10px;">            
-                                            <p class='panel-heading' style="margin-top: 20px;">
-                                                <img src='../modules/mpmanageproducts/views/img/attribute.png' alt='Config'>
                                                 {l s='Attribute combinations' mod='mpmanageproducts'}
                                             </p>
                                             <table class="table" id="table_list_attribute_combinations" style='display: block; overflow-y: auto; height: 20em; width: 98%;'>
@@ -569,9 +556,27 @@
 
                                                 </tbody>
                                             </table>
+                                            
+                                        </div>
+                                        <div style="display: inline-block; width: 32%; float: left; padding-left: 10px;">            
+                                            <p class='panel-heading' style="margin-top: 20px;">
+                                                <img src='../modules/mpmanageproducts/views/img/attribute.png' alt='Config'>
+                                                {l s='List Products' mod='mpmanageproducts'}
+                                            </p>
+                                            <table class="table" id="table_list_products_combinations" style='display: block; overflow-y: auto; height: 20em; width: 98%;'>
+                                                <thead>
+                                                    <tr>
+                                                        <th style='text-align: right;'><input type='checkbox' id='input_checkbox_product_combinations'></th>
+                                                        <th>{l s='Product' mod='mpmanageproducts'}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
                                             <br>
                                             <div>
-                                                <button type="button" value="1" id="submit_clear_attribute_combination" name="submit_clear_attribute_combination" class="btn btn-default">
+                                                <button type="button" value="1" id="submit_clear_attribute_combination" class="btn btn-default">
                                                     <i class="icon-remove-circle"></i> 
                                                     {l s='Clear combinations' mod='mpmanageproducts'}
                                                 </button>
@@ -648,18 +653,25 @@
     </div>
 </form>
                             
-ion<script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function(){
+        //DATEPICKER
         $("#input_discount_from").datepicker();
         $("#input_discount_from").datepicker("option","dateFormat","yy-mm-dd");
         $("#input_discount_to").datepicker();
         $("#input_discount_to").datepicker("option","dateFormat","yy-mm-dd");
         $("#row_available").datepicker();
         $("#row_available").datepicker("option","dateFormat","yy-mm-dd");
+        
+        //TABS
         $("#tabs").tabs();
         $("#tabs-discounts").tabs();
         $("#tabs-combinations").tabs();
+        
+        //Set Categories tree
         $('#associated-categories-tree').tree('expandAll').tree('collapseAll');
+        
+        //Manage Events
         $('#input_list_attribute_groups').on('change',function(){
             var id_attribute_group = $(this).val();
             $.ajax({
@@ -741,7 +753,8 @@ ion<script type="text/javascript">
         });
         $("#submit_delete_combination").on("click",function(){
             var checkboxes = getCheckBoxesFromTable('table_combinations');
-            deleteFromTable('product_attribute','id_product_attribute',checkboxes);
+            deleteCombinationsByID(checkboxes);
+            //deleteFromTable('product_attribute','id_product_attribute',checkboxes,true);
         });
         
         $("#submit_add_discount").on("click",function(){
@@ -768,7 +781,8 @@ ion<script type="text/javascript">
             addCombinations(checkboxes);
         });
         $("#submit_clear_attribute_combination").on("click",function(){
-            clearCombinations();
+            clearTable('table_list_attribute_combinations');
+            listAttributes();
         });
         
         $("#input_select_attribute").on("change",function(){
@@ -781,6 +795,7 @@ ion<script type="text/javascript">
                     },
             success: function(response)
                     {
+                        $("#table_list_attributes tbody").html("");
                         $("#table_list_attributes tbody").html(response);
                     }
             });
@@ -847,7 +862,7 @@ ion<script type="text/javascript">
         });
         
         $("#submit_clear_table_list_combination").on("click",function(){
-            $("#table_list_combinations >tbody").html("");
+            clearTable('table_list_combinations');
         });
         
         $("#submit_save_table_list_combination").on("click",function(){
@@ -886,9 +901,13 @@ ion<script type="text/javascript">
             success: function(response)
                     {
                         alert(response);
-                        $("#table_list_products_combinations >tbody").html("");
+                        $("#table_list_combinations >tbody").html("");
                     }
             });
+        });
+        
+        $(document).on("dblclick", "#table_list_combinations tbody tr td", function(){
+            editRow(this);
         });
     });
     
@@ -952,8 +971,157 @@ ion<script type="text/javascript">
         });
     }
     
-    function editRow(elem)
+    function editRow(elem,cellIndex=0)
     {
+        if(cellIndex==0) {
+            cellIndex = Number($(elem).closest("td").index()) + 1;
+        }
+        
+        if(cellIndex<3) {
+            return false;
+        }
+        
+        var $table = $(elem).closest('table');
+        var $row = $(elem).closest('tr');
+        var $cell = $($row).find("td:nth-child(" + cellIndex + ")");
+        
+        //Get cell content
+        var content = $($cell).text();
+        
+        //Create inner input
+        var innerInput = $('<input>', {
+                    'id'    : 'innerInputCell',
+                    'class' : 'input_editable',
+                    'type'  : 'text',
+                    'style' : 'cursor:pointer;font-weight:bold;',
+                    'value' : content
+                });
+                    
+        $(innerInput).on({
+                    'blur'  : function()
+                                {
+                                    if(cellIndex!=16) {
+                                        $(this).trigger('closeEditable');
+                                    }
+                                },
+                    'keyup' : function(e) 
+                                {
+                                    if(e.which == '13'){ // enter
+                                        $(this).trigger('nextCell');
+                                    } else if(e.which == '27'){ // escape
+                                        $(this).trigger('closeEditable');
+                                    }
+                                },
+                    'keydown' : function(e)
+                                {
+                                    if(e.which == '9'){ // tab
+                                        e.preventDefault();
+                                        $(this).trigger('nextCell');
+                                    } 
+                                },
+                    'closeEditable' : function()
+                                {
+                                    $cell.html(content);
+                                },
+                    'saveEditable'  : function()
+                                {
+                                    content = $(this).val();
+                                    $(this).trigger('closeEditable');
+                                },
+                    'nextCell':function()
+                                {
+                                    var rowLength = $($row).children().length;
+                                    var nextIndex = cellIndex + 1;
+                                    console.log('nextcell, row.length: ' + rowLength);
+                                    if(nextIndex < rowLength) {
+                                        console.log('index:' + nextIndex);
+                                        $(this).trigger('saveEditable');
+                                        $cell = $($row).find("td:nth-child(" + nextIndex + ")");
+                                        editRow($cell,nextIndex);
+                                    } else {
+                                        $(this).trigger('saveEditable');
+                                        $(this).trigger('closeEditable');
+                                    }
+                                },
+                    'focus' : function()
+                                {
+                                    if(cellIndex==16) {
+                                        $(innerInput).datepicker({
+                                            'dateFormat' : 'yy-mm-dd',
+                                        });
+                                        $(innerInput).datepicker("show");
+                                    } else {
+                                        $(this).select();
+                                    }
+                                },
+                    'change' : function()
+                                {
+                                    if(cellIndex==16) {
+                                        $(this).trigger('nextCell');
+                                    }
+                                }
+                        
+                    });
+                    
+                    $($cell).html("");
+                    $($cell).append(innerInput);
+                    
+                    $(innerInput).focus();
+                    
+                    return;
+                    
+        var inner_cell = 
+        $($cell).html('<input class="input_editable" type="text" value="' + content + '" />')
+        .find('input')
+        .trigger('focus')
+        .on({
+            'blur': function(){
+                $(this).trigger('closeEditable');
+            },
+            'keyup':function(e){
+                if(e.which == '13'){ // enter
+                    $(this).trigger('saveEditable');
+                } else if(e.which == '27'){ // escape
+                    $(this).trigger('closeEditable');
+                }
+            },
+            'keydown':function(e){
+                if(e.which == '9'){ // tab
+                    e.preventDefault();
+                    $(this).trigger('nextCell');
+                }
+            },
+            'closeEditable':function(){
+                $cell.html(content);
+            },
+            'saveEditable':function(){
+                content = $(this).val();
+                $(this).trigger('closeEditable');
+            },
+            'nextCell':function(){
+                var rowLength = $($row).children().length;
+                var nextIndex = cellIndex + 1;
+                console.log('nextcell, row.length: ' + rowLength);
+                if(nextIndex < rowLength) {
+                    console.log('index:' + nextIndex);
+                    $(this).trigger('saveEditable');
+                    $cell = $($row).find("td:nth-child(" + nextIndex + ")");
+                    editRow($cell,nextIndex);
+                }
+            }
+        })
+        .select();
+        
+        console.log("innercell:" + $(inner_cell).html());
+        
+        if(cellIndex==16) {
+            console.log("datepicker!!");
+            $(inner_cell).datepicker();
+            $(inner_cell).datepicker("option","dateFormat","yy-mm-dd");
+        }
+        
+        return;
+        
         var row = $(elem).parent().parent();
         var row_index = row.index();
         var arr_combinations = $(row).find("td:nth-child(1)").text();
@@ -1219,7 +1387,49 @@ ion<script type="text/javascript">
         $("#" + tablename + " tbody").html(products);
     }
     
-    function deleteFromTable(tablename,fieldname,values)
+    function deleteCombinations(products)
+    {
+        if(confirm("{l s='Delete selected items?' mod='mpmanageproducts'}")===false) {
+            return false;
+        }
+        
+        $.ajax({
+            method: 'POST',
+            url   : '../modules/mpmanageproducts/ajax/deleteCombinationsByProductID.php',
+            data  :
+                    {
+                        'products': products
+                    },
+            success: function(response)
+                    {
+                        refreshTables();
+                        alert("{l s='Elements deleted.' mod='mpmanageproducts'}");
+                    }
+        });
+    }
+    
+    function deleteCombinationsByID(product_attributes)
+    {
+        if(confirm("{l s='Delete selected items?' mod='mpmanageproducts'}")===false) {
+            return false;
+        }
+        
+        $.ajax({
+            method: 'POST',
+            url   : '../modules/mpmanageproducts/ajax/deleteCombinationsByID.php',
+            data  :
+                    {
+                        'product_attributes': product_attributes
+                    },
+            success: function(response)
+                    {
+                        refreshTables();
+                        alert("{l s='Elements deleted.' mod='mpmanageproducts'}");
+                    }
+        });
+    }
+    
+    function deleteFromTable(tablename,fieldname,values,clearDependency=false)
     {
         if(confirm("{l s='Delete selected items?' mod='mpmanageproducts'}")===false) {
             return false;
@@ -1236,7 +1446,26 @@ ion<script type="text/javascript">
                     },
             success: function(response)
                     {
+                        if(clearDependency) {
+                            clearRecordDependency(tablename);
+                        }
                         refreshTables();
+                    }
+        });
+    }
+    
+    function clearRecordDependency(tablename)
+    {
+        $.ajax({
+            method: 'POST',
+            url   : '../modules/mpmanageproducts/ajax/clearDependency.php',
+            data  :
+                    {
+                        'tablename': tablename,
+                    },
+            success: function(response)
+                    {
+                        console.log(response);
                     }
         });
     }
@@ -1334,13 +1563,13 @@ ion<script type="text/javascript">
         });
     }
     
-    function clearCombinations()
+    function clearTable(tablename)
     {
-        $("#table_list_combinations tbody").html("");
-        listAttributes();
+        $("#" + tablename + " >tbody").html("");
     }
     
-    function isInArray(value, array) {
+    function isInArray(value, array) 
+    {
         return array.indexOf(value) > -1;
     }
     
@@ -1371,7 +1600,8 @@ ion<script type="text/javascript">
     //++ COMBINATION FUNCTIONS       ++
     //++ Copyright 2012 Akseli Palén ++
     //+++++++++++++++++++++++++++++++++
-    function cartesian_combination(array_container) {
+    function cartesian_combination(array_container) 
+    {
         var r = [];
         var arg = array_container;
         var max = arg.length-1;
@@ -1389,5 +1619,4 @@ ion<script type="text/javascript">
         helper([], 0);
         return r;
     }
-    
 </script>

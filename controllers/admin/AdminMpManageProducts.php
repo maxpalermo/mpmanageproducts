@@ -100,6 +100,7 @@ class AdminMpManageProductsController extends ModuleAdminControllerCore {
     public function setMedia() {
         parent::setMedia();
         $this->addJqueryUI('ui.tabs');
+        $this->addJS('https://cdnjs.cloudflare.com/ajax/libs/riot/3.4.0/riot+compiler.min.js');
     }
     
     private function getCarriers()

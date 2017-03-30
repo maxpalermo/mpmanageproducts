@@ -44,6 +44,11 @@ $rows       = [];
 $td         = [];
 $current_id = 0;
 
+if(empty($result)) {
+    print json_encode(['resultset'=>'empty']);
+    exit();
+}
+
 foreach($result as $record)
 {
     if($current_id==0) {
