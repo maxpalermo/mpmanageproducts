@@ -602,24 +602,24 @@
                                         <table class="table" id="table_list_combinations" style='display: block; overflow-y: auto; height: 20em; width: 98%;'>
                                             <thead>
                                                 <tr>
-                                                    <th>combinations</th>
-                                                    <th>id_product</th>
-                                                    <th>reference</th>
-                                                    <th>suppl ref</th>
-                                                    <th>location</th>
-                                                    <th>ean13</th>
-                                                    <th>upc</th>
-                                                    <th>wholesale_price</th>
-                                                    <th>price</th>
-                                                    <th>ecotax</th>
-                                                    <th>qty</th>
-                                                    <th>weight</th>
-                                                    <th>unit_price</th>
-                                                    <th>default_on</th>
-                                                    <th>min_qty</th>
-                                                    <th>available</th>
-                                                    <th>tax included</th>
-                                                    <th>actions</th>
+                                                    <th>{l s='Attributes' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='Product' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='Reference' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='Supplier reference' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='Location' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='EAN13' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='UPC' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='Wholesale price' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='Price' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='Ecotax' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='Quantity' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='Weight' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='Unit price' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='Default' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='Minimum quantity' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='Available from' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='Tax included' mod='mpmanageproducts'}</th>
+                                                    <th>{l s='Actions' mod='mpmanageproducts'}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -628,8 +628,17 @@
                                         </table>
                                         <br>
                                         <div class='panel-footer'>
+                                            <input type='file' style='display: none;' id='input_pattern' accept='*.pat'>
+                                            <button type="button" value="1" id="submit_load_table_pattern" class="btn btn-default pull-right">
+                                                <i class="process-icon-upload"></i> 
+                                                {l s='Load pattern' mod='mpmanageproducts'}
+                                            </button>
+                                            <button type="button" value="1" id="submit_save_table_pattern" class="btn btn-default pull-right">
+                                                <i class="process-icon-download"></i> 
+                                                {l s='Save pattern' mod='mpmanageproducts'}
+                                            </button>
                                             <button type="button" value="1" id="submit_clear_table_list_combination" class="btn btn-default pull-right">
-                                                <i class="process-icon-dropdown"></i> 
+                                                <i class="process-icon-refresh"></i> 
                                                 {l s='Clear combinations' mod='mpmanageproducts'}
                                             </button>
                                             <button type="button" value="1" id="submit_save_table_list_combination" class="btn btn-default pull-right">
@@ -832,12 +841,24 @@
             });
             
             //Combine arrays
+            var list_combinations = new Array();
             list_attributes = cartesian_combination(cartesian);
+            $(list_attributes).each(function(){
+                var joinArray = this[0] + ";" + this[1];
+                list_combinations.push(joinArray);
+            });
+            console.log("before:" );
+            console.log(list_combinations );
+            list_combinations = list_combinations.sort();
+            console.log("after:" );
+            console.log(list_combinations );
             
             //Send Arrays to new Table combination row
-            $(list_attributes).each(function(){
-                addCombinationRow(this,id_products);
-            });
+            for(var i=0;i<list_combinations.length;i++)
+            {
+                console.log("addrow: " + list_combinations[i]);
+                addCombinationRow(list_combinations[i],id_products);
+            }
         });
         
         $("#input_checkbox_list_attributes").on("click",function(){
@@ -870,8 +891,8 @@
             var rows = new Array();
             $("#table_list_combinations >tbody tr").each(function(){
                 var row = new Array();
-                row.push($(this).find("td:nth-child(1)").text()); // attributes
-                row.push($(this).find("td:nth-child(2)").text()); // products
+                row.push($(this).find("td:nth-child(1)").find("input").val()); // attributes
+                row.push($(this).find("td:nth-child(2)").find("input").val()); // products
                 row.push($(this).find("td:nth-child(3)").text()); // reference
                 row.push($(this).find("td:nth-child(4)").text()); // supplier reference
                 row.push($(this).find("td:nth-child(5)").text()); // location
@@ -908,6 +929,66 @@
         
         $(document).on("dblclick", "#table_list_combinations tbody tr td", function(){
             editRow(this);
+        });
+        
+        $("#submit_save_table_pattern").on("click",function(){
+            var rows = new Array();
+            $("#table_list_combinations tbody tr").each(function(){
+                var row = this;
+                var cols = new Array();
+                var rowLength = $(row).children().length;
+                for(var i=3;i<rowLength;i++)
+                {
+                    cols.push($(row).find("td:nth-child(" + i + ")").text());
+                }
+                rows.push(cols);
+            });
+            
+            $.ajax({
+            method: 'POST',
+            url   : '../modules/mpmanageproducts/ajax/savePattern.php',
+            data  :
+                    {
+                        'rows' : rows
+                    },
+            success: function(response)
+                    {
+                        console.log(response);
+                    }
+            });
+            
+        });
+        
+        $("#submit_load_table_pattern").on("click",function(){
+            var rows = new Array();
+            
+            $.ajax({
+                async : false,
+                method: 'POST',
+                url   : '../modules/mpmanageproducts/ajax/loadPattern.php',
+                success: function(response)
+                        {
+                            rows = JSON.parse(response);
+                            console.log(rows);
+                        }
+            });
+            
+            var rowsLen = rows.length;
+            console.log("read " + rowsLen + " rows");
+            
+            for(var i=1; i<rowsLen+1; i++)
+            {
+                var row = rows[i];
+                var tableRow = $("#table_list_combinations tbody tr:nth-child(" + i + ")");
+                console.log("get row " + i);
+                console.log(tableRow);
+                for(j=0; j<row.length; j++)
+                {
+                    console.log("insert " + row[j] + " in column " + j);
+                    $(tableRow).find("td:nth-child(" + (j+3)  + ")").text(row[j]);
+                }
+            }
+        
         });
     });
     
@@ -1581,6 +1662,7 @@
         });
         
         $.ajax({
+            async : false,
             method: 'POST',
             url   : '../modules/mpmanageproducts/ajax/addCombinationRow.php',
             data  :
@@ -1590,7 +1672,7 @@
                     },
             success: function(response)
                     {
-                        console.log(response);
+                        //console.log(response);
                         $("#table_list_combinations tbody").append(response);
                     }
         });

@@ -11,41 +11,50 @@ require_once(dirname(__FILE__).'/../../../init.php');
 
 $rows = Tools::getValue("rows");
 
-foreach($rows as $row) 
+foreach($rows as $col) 
 {
-    $products = explode(";",$row[1]);
+    $products = explode(";",$col[1]);
     foreach($products as $product)
     {
         $objProduct = new ProductCore($product);
-        $tax_rule   = new TaxCore();
-        $tax_rate   = $tax_rule->getTaxIdByName($objProduct->tax_name);
         
+        $db = Db::getInstance();
+        $sql = new DbQueryCore();
         
-        $attributes = explode(";", $row[0]);
-        $reference  = substr($row[2], 0, 32);
-        $supp_ref   = substr($row[3], 0, 32);
-        $location   = substr($row[4], 0, 64);
-        $ean13      = substr($row[5], 0, 13);
-        $upc        = substr($row[6], 0, 12);
-        $quantity   = (int)$row[10];
-        $weight     = (float)$row[11];
-        $default    = (bool)$row[13];
-        $min_qty    = (int)$row[14];
-        $available  = $row[15];
-        $tax_incl   = (bool)$row[16];
-                
+        $sql
+                ->select('t.rate')
+                ->from('tax','t')
+                ->innerJoin('tax_rule','tr','t.id_tax=tr.id_tax')
+                ->innerJoin('tax_rules_group','trg','tr.id_tax_rules_group=trg.id_tax_rules_group')
+                ->where('trg.id_tax_rules_group=' . $objProduct->id_tax_rules_group);
+        $tax_rate = $db->getValue($sql);
+        
+        $attributes = explode(";", $col[0]);
+        $reference  = substr($col[2], 0, 32);
+        $supp_ref   = substr($col[3], 0, 32);
+        $location   = substr($col[4], 0, 64);
+        $ean13      = substr($col[5], 0, 13);
+        $upc        = substr($col[6], 0, 12);
+        $quantity   = (int)$col[10];
+        $weight     = (float)$col[11];
+        $default    = (bool)$col[13];
+        $min_qty    = (int)$col[14];
+        $available  = $col[15];
+        $tax_incl   = (int)$col[16];
+        $tax = ((float)$tax_rate+100)/100;
+        
+        $add[] = ['tax included'=>$tax_incl, 'tax-rate'=>$tax,];
+        
         if($tax_incl) { //Tax included
-            $tax = ((float)$tax_rate+100)/100;
-            
-            $wholesale_price = number_format((float)$row[7] / (float)$tax, 6);
-            $price           = number_format((float)$row[8] / (float)$tax, 6);
-            $ecotax          = number_format((float)$row[9] / (float)$tax, 6);
-            $unit_price      = number_format((float)$row[12] / (float)$tax, 6);
+            $wholesale_price = number_format((float)$col[7] / (float)$tax, 6);
+            $price           = number_format((float)$col[8] / (float)$tax, 6);
+            $ecotax          = number_format((float)$col[9] / (float)$tax, 6);
+            $unit_price      = number_format((float)$col[12] / (float)$tax, 6);
         } else {
-            $wholesale_price = number_format((float)$row[7], 6);
-            $price           = number_format((float)$row[8], 6);
-            $ecotax          = number_format((float)$row[9], 6);
-            $unit_price      = number_format((float)$row[12], 6);
+            $wholesale_price = number_format((float)$col[7], 6);
+            $price           = number_format((float)$col[8], 6);
+            $ecotax          = number_format((float)$col[9], 6);
+            $unit_price      = number_format((float)$col[12], 6);
         }
         
         $comb = new CombinationCore();

@@ -9,10 +9,10 @@
 require_once(dirname(__FILE__).'/../../../config/config.inc.php');
 require_once(dirname(__FILE__).'/../../../init.php');
 
-$combinations = Tools::getValue("combinations");
+$id_join_attributes = Tools::getValue("combinations");
 $id_products  = Tools::getValue("id_products");
 
-if(empty($combinations) ||empty($id_products)) {
+if(empty($id_join_attributes) ||empty($id_products)) {
     print "no values";
     exit();
 }
@@ -20,10 +20,40 @@ if(empty($combinations) ||empty($id_products)) {
 $actions = "<i class='icon-edit' onclick='editRow(this,3);'></i>  " 
     . "<i class='icon-remove' onclick='deleteRow(this);'>"; 
 
+$db = Db::getInstance();
+$attributes = [];
+$prods = [];
+
+$id_attributes = explode(";", $id_join_attributes);
+
+foreach($id_attributes as $id_attr)
+{
+    $attr = new AttributeCore($id_attr);
+    foreach($attr->name as $name)
+    {
+        $attributes[] = $name;
+    }
+}
+
+foreach($id_products as $id_prod)
+{
+    $prod = new ProductCore($id_prod);
+    foreach($prod->name as $name)
+    {
+        $prods[] = $name;
+    }
+}
+
 $row = 
     "<tr>"
-        ."<td>" . implode(";", $combinations) . "</td>"
-        ."<td>" . implode(";", $id_products) . "</td>"
+        ."<td>"
+            . "<input type='hidden' value='". implode(";", $id_attributes) . "'>"
+            . implode(", ", $attributes)
+        . "</td>"
+        ."<td>" 
+            . "<input type='hidden' value='". implode(";", $id_products) . "'>"
+            . implode(", ", $prods)
+        . "</td>"
         ."<td></td>"
         ."<td></td>"
         ."<td></td>"
