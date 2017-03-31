@@ -77,6 +77,18 @@
         max-height: 80%;
         height: 80%;
     }
+    #cover-wait-operations
+    {
+        background: url("../modules/mpmanageproducts/views/img/waiting.gif") no-repeat scroll center center #FFF;
+        background-size: 128px;
+        position: fixed;
+        z-index: 99999999;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        display: none;
+    }
 </style>
 
 <div class="overlay" id="form_edit_row">
@@ -661,7 +673,8 @@
                                 
     </div>
 </form>
-                            
+<div id='cover-wait-operations'></div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         //DATEPICKER
@@ -761,8 +774,10 @@
             uncheckSelectAll($("#table_combinations tbody tr input[type='checkbox']"));
         });
         $("#submit_delete_combination").on("click",function(){
+            $("#cover-wait-operations").fadeIn();
             var checkboxes = getCheckBoxesFromTable('table_combinations');
             deleteCombinationsByID(checkboxes);
+            $("#cover-wait-operations").fadeOut();
             //deleteFromTable('product_attribute','id_product_attribute',checkboxes,true);
         });
         
@@ -889,6 +904,7 @@
         $("#submit_save_table_list_combination").on("click",function(){
             
             var rows = new Array();
+            $("#cover-wait-operations").fadeIn();
             $("#table_list_combinations >tbody tr").each(function(){
                 var row = new Array();
                 row.push($(this).find("td:nth-child(1)").find("input").val()); // attributes
@@ -911,9 +927,9 @@
                 
                 rows.push(row);
             });
-            
             $.ajax({
             method: 'POST',
+            async : true,
             url   : '../modules/mpmanageproducts/ajax/addCombinations.php',
             data  :
                     {
@@ -923,6 +939,7 @@
                     {
                         alert(response);
                         $("#table_list_combinations >tbody").html("");
+                        $("#cover-wait-operations").fadeOut();
                     }
             });
         });
@@ -937,7 +954,7 @@
                 var row = this;
                 var cols = new Array();
                 var rowLength = $(row).children().length;
-                for(var i=3;i<rowLength;i++)
+                for(var i=4;i<rowLength;i++)
                 {
                     cols.push($(row).find("td:nth-child(" + i + ")").text());
                 }
@@ -969,23 +986,23 @@
                 success: function(response)
                         {
                             rows = JSON.parse(response);
-                            console.log(rows);
+                            //console.log(rows);
                         }
             });
             
             var rowsLen = rows.length;
             console.log("read " + rowsLen + " rows");
             
-            for(var i=1; i<rowsLen+1; i++)
+            for(var i=0; i<rowsLen; i++)
             {
                 var row = rows[i];
-                var tableRow = $("#table_list_combinations tbody tr:nth-child(" + i + ")");
-                console.log("get row " + i);
-                console.log(tableRow);
+                var tableRow = $("#table_list_combinations tbody tr:nth-child(" + (i+1) + ")");
+                //console.log("get row " + i);
+                //console.log(tableRow);
                 for(j=0; j<row.length; j++)
                 {
-                    console.log("insert " + row[j] + " in column " + j);
-                    $(tableRow).find("td:nth-child(" + (j+3)  + ")").text(row[j]);
+                    //console.log("insert " + row[j] + " in column " + j);
+                    $(tableRow).find("td:nth-child(" + (j+4)  + ")").text(row[j]);
                 }
             }
         

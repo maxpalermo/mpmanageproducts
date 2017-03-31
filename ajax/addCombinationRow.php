@@ -24,8 +24,8 @@ $db = Db::getInstance();
 $attributes = [];
 $prods = [];
 
+//Get Attributes
 $id_attributes = explode(";", $id_join_attributes);
-
 foreach($id_attributes as $id_attr)
 {
     $attr = new AttributeCore($id_attr);
@@ -35,13 +35,24 @@ foreach($id_attributes as $id_attr)
     }
 }
 
-foreach($id_products as $id_prod)
-{
-    $prod = new ProductCore($id_prod);
+//Get products
+if (count($id_products==1)) {
+    $prod = new ProductCore($id_products[0]);
     foreach($prod->name as $name)
     {
         $prods[] = $name;
     }
+    $ref = $prod->reference;
+} else {
+    foreach($id_products as $id_prod)
+    {
+        $prod = new ProductCore($id_prod);
+        foreach($prod->name as $name)
+        {
+            $prods[] = $name;
+        }
+    }
+    $ref = "";
 }
 
 $row = 
@@ -54,7 +65,7 @@ $row =
             . "<input type='hidden' value='". implode(";", $id_products) . "'>"
             . implode(", ", $prods)
         . "</td>"
-        ."<td></td>"
+        ."<td>$ref</td>"
         ."<td></td>"
         ."<td></td>"
         ."<td></td>"
